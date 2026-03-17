@@ -1,0 +1,185 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\recommend.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\templates\\recommend.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\templates\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\static\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\static\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\static\\js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\static\\js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\game.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\templates\\game.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\app.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\app.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\Shiankang0.0.1.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\Shiankang0.0.1.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\templates\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\static\\js\\recommend.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\static\\js\\recommend.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\backend\\test_app.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{B653F50A-7320-4A2F-868A-8191B571F20E}|..\\Shiankang0.0.2\\Siankang0.0.1.pyproj|solutionrelative:Shiankang0.0.1\\backend\\test_app.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "recommend.html",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\recommend.html",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\templates\\recommend.html",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\recommend.html",
+              "RelativeToolTip": "Shiankang0.0.1\\templates\\recommend.html",
+              "ViewState": "AgIAANUEAAAAAAAAAAAqwNwEAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-10-27T11:30:16.931Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\index.html",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\templates\\index.html",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\index.html",
+              "RelativeToolTip": "Shiankang0.0.1\\templates\\index.html",
+              "ViewState": "AgIAAJcDAAAAAAAAAAAqwLcDAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-10-27T11:27:15.322Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "style.css",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\static\\css\\style.css",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\static\\css\\style.css",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\static\\css\\style.css",
+              "RelativeToolTip": "Shiankang0.0.1\\static\\css\\style.css",
+              "ViewState": "AgIAADUEAAAAAAAAAAAqwFUEAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-10-27T11:30:57.478Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "script.js",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\static\\js\\script.js",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\static\\js\\script.js",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\static\\js\\script.js",
+              "RelativeToolTip": "Shiankang0.0.1\\static\\js\\script.js",
+              "ViewState": "AgIAAJQBAAAAAAAAAAAywLEBAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-10-27T11:31:12.866Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "game.html",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\game.html",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\templates\\game.html",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\game.html",
+              "RelativeToolTip": "Shiankang0.0.1\\templates\\game.html",
+              "ViewState": "AgIAAHIHAAAAAAAAAAAAAF8IAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-16T12:49:33.653Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "app.py",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\app.py",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\app.py",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\app.py",
+              "RelativeToolTip": "Shiankang0.0.1\\app.py",
+              "ViewState": "AgIAADwCAAAAAAAAAAAQwFoCAAAyAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAXOSURBVEhLhZZdbBTXGYafM7s7610v68XGxgECuEaLAW8NCJIoCviiWErbKOlF\u002BWtuWiEuqNLetFK5iqpWvegFaq\u002BqNqoqkSrgVpWKiIqrRlDUBpRQW0YbBclbfgobLbGMvd7Z\u002BT8z5/Ri14trIvWVPs1Ic/S\u002B5zxzvjkjaCkHJNr3/08R4AJ67YNnpHVrzLFjx96am5urzM7OTtu2rSzLUs1mUy0vLyvXdVW9Xle1Wk3dvn1bzczM1M6dO3c2k8nk1/p9kRIAe/bseaFQKNTv3bv3fqlUeh1ACEEYhoRhiO/7NBoNlFI0Go3c4cOHDxSLxczly5c/AuRa02d0/Pjxt2zbDizL8jzPU57nKd/3VRAESkqppJQqiiLlOI4ql8uqVqupWq2mLl68\u002BPNEIpFb67daCYDR0dEXhBDVmzdvvjs2NvZ1KSVKKeI4xjRNDMNACEEikcCyLJRS3L17l507d5ZSqZSenp6eVUqFa81ZHXDmzJnvjIyM7C0UCv3pdJpUKoVpmgghOu8qjmMajQaDg4Nks1kMw0iPjo7uLxaL4dTU1L\u002BAeG2AQZv31atXpyYnJ98JgoClpSWWlpZYWFjAsizm5\u002BdZWlpCSonneTx48IB6vc6tW7funz179rdjY2PfBwbWmrMSAFAqlXaOj48fTCaTJJNJoigijmOklGSzWdLpNEIItm7dytDQEMPDwxw8eDB/4sSJ7ZlMpgBk/te6pQ6i4eHh5x4\u002BfFgrFosv\u002Bb5PJpPBNE26u7sxDAPDMGg2m4RhSHd3N\u002Bl0mnw\u002Bnx0ZGdnd19eXPHLkSGZxcbFSqVQWVwckafeDEGI5l8t9trIlV0KEEDQaDQqFAo7jkEhnufDxY/5WfsRnnz9BSJ\u002B0ITm8e/Op37373tah5ze95jhOZ\u002Bt2EA0ODo5t2LDh1a6uLvr6\u002Bsjn8ySTSQB6e3sBGBgYIEp103AD3n6jBFGIiEOk7/GP6U\u002BZrTwaB1IrnqwOqFQqH1YqlQu2bTM/P08cx1SrVRYWFoiiCMuyiKIIrTR/nXnAjydvIuKgVVGACn2iUJqAWB3QQXTo0KE3pZTfzOVyZDIZtNYMDQ0BoA0TP2ng\u002BRrQ/OrUS6A1luPym0v/pHK/gVABQsc0Fz9torUkuf7ql/e98u0WA\u002BDatWuTi4uL5ZMnT/7atm1M0ySRSJBMJnlv9gl/\u002Bug/yMDFiHyMyEPEAUbkYUi/vZI29toPIbBTZF95tVwu/6KDaGJi4s2jR4/\u002BNJVK0dPTQzabxTRNcrkcl2aqyLBtpAJEHCKiABGFCBUi4ugpFxlC4MLiBwBfM2gjunLlyuT58\u002Bd/srprLcvCMAw818WIfYw4YH3aYNfmAnue72P3tg3s2tbPrqFN7N25nU09NoQ\u002BRCH4DYCeDqJ9\u002B/a9GATBkNYarTVKKQyjtUDR3i0iCvnBif28PFwhZSjQCYhNiCKIA2j\u002BEZp2axVh69PUQVQulz\u002B5fv36h0opViqOY7TWpEXUxhFwaM96UnIK/A/AmQLrfahfgid/BvsTCINWQKwAvA6i/v7\u002B7h07dnSvmEspCYKAIAgY391PComIAgxDgFYQSZBBq6K2aRi0Zi4l9BwA\u002BHsHUSKR2BCGofR9H8/zME2Trq4uLMviWy9/iRd3DBBLCVqDilqcVQYK3wCxHuIYVNy6aiLypdnTp0\u002B/3Ql4/Pjx7WazOeO67vF6vU46ne50suu69AKJdKJ1FEvZqrAJ9u9bs/c92H6WjXu/u9F1XQeIHccJDIC5ublbjuNsPHDgwI/WrVuntmzZEvf29gb5fN4TQjy2bXv2zp07l27cuPFLrXREFD/FEzRh289gy/dAxZHruo7jOK7jOAGr2johhOgplUrFiYmJr2zevHnd/fv3bcuyvGq1\u002BrBarf770aNHn4dh6MRy\u002BQ9i4Z2vsnwdgmUIAsjsg2wRNr7x8brn9o87jvOFp9uKBGC265lfmdHR0QGt9QWt9bJ\u002BKldr/ZdTp07tXzv\u002Bv6t2M/alcKmuAAAAAElFTkSuQmCC",
+              "WhenOpened": "2025-10-27T11:26:33.015Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Shiankang0.0.1.py",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\Shiankang0.0.1.py",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\Shiankang0.0.1.py",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\Shiankang0.0.1.py",
+              "RelativeToolTip": "Shiankang0.0.1\\Shiankang0.0.1.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAXOSURBVEhLhZZdbBTXGYafM7s7610v68XGxgECuEaLAW8NCJIoCviiWErbKOlF\u002BWtuWiEuqNLetFK5iqpWvegFaq\u002BqNqoqkSrgVpWKiIqrRlDUBpRQW0YbBclbfgobLbGMvd7Z\u002BT8z5/Ri14trIvWVPs1Ic/S\u002B5zxzvjkjaCkHJNr3/08R4AJ67YNnpHVrzLFjx96am5urzM7OTtu2rSzLUs1mUy0vLyvXdVW9Xle1Wk3dvn1bzczM1M6dO3c2k8nk1/p9kRIAe/bseaFQKNTv3bv3fqlUeh1ACEEYhoRhiO/7NBoNlFI0Go3c4cOHDxSLxczly5c/AuRa02d0/Pjxt2zbDizL8jzPU57nKd/3VRAESkqppJQqiiLlOI4ql8uqVqupWq2mLl68\u002BPNEIpFb67daCYDR0dEXhBDVmzdvvjs2NvZ1KSVKKeI4xjRNDMNACEEikcCyLJRS3L17l507d5ZSqZSenp6eVUqFa81ZHXDmzJnvjIyM7C0UCv3pdJpUKoVpmgghOu8qjmMajQaDg4Nks1kMw0iPjo7uLxaL4dTU1L\u002BAeG2AQZv31atXpyYnJ98JgoClpSWWlpZYWFjAsizm5\u002BdZWlpCSonneTx48IB6vc6tW7funz179rdjY2PfBwbWmrMSAFAqlXaOj48fTCaTJJNJoigijmOklGSzWdLpNEIItm7dytDQEMPDwxw8eDB/4sSJ7ZlMpgBk/te6pQ6i4eHh5x4\u002BfFgrFosv\u002Bb5PJpPBNE26u7sxDAPDMGg2m4RhSHd3N\u002Bl0mnw\u002Bnx0ZGdnd19eXPHLkSGZxcbFSqVQWVwckafeDEGI5l8t9trIlV0KEEDQaDQqFAo7jkEhnufDxY/5WfsRnnz9BSJ\u002B0ITm8e/Op37373tah5ze95jhOZ\u002Bt2EA0ODo5t2LDh1a6uLvr6\u002Bsjn8ySTSQB6e3sBGBgYIEp103AD3n6jBFGIiEOk7/GP6U\u002BZrTwaB1IrnqwOqFQqH1YqlQu2bTM/P08cx1SrVRYWFoiiCMuyiKIIrTR/nXnAjydvIuKgVVGACn2iUJqAWB3QQXTo0KE3pZTfzOVyZDIZtNYMDQ0BoA0TP2ng\u002BRrQ/OrUS6A1luPym0v/pHK/gVABQsc0Fz9torUkuf7ql/e98u0WA\u002BDatWuTi4uL5ZMnT/7atm1M0ySRSJBMJnlv9gl/\u002Bug/yMDFiHyMyEPEAUbkYUi/vZI29toPIbBTZF95tVwu/6KDaGJi4s2jR4/\u002BNJVK0dPTQzabxTRNcrkcl2aqyLBtpAJEHCKiABGFCBUi4ugpFxlC4MLiBwBfM2gjunLlyuT58\u002Bd/srprLcvCMAw818WIfYw4YH3aYNfmAnue72P3tg3s2tbPrqFN7N25nU09NoQ\u002BRCH4DYCeDqJ9\u002B/a9GATBkNYarTVKKQyjtUDR3i0iCvnBif28PFwhZSjQCYhNiCKIA2j\u002BEZp2axVh69PUQVQulz\u002B5fv36h0opViqOY7TWpEXUxhFwaM96UnIK/A/AmQLrfahfgid/BvsTCINWQKwAvA6i/v7\u002B7h07dnSvmEspCYKAIAgY391PComIAgxDgFYQSZBBq6K2aRi0Zi4l9BwA\u002BHsHUSKR2BCGofR9H8/zME2Trq4uLMviWy9/iRd3DBBLCVqDilqcVQYK3wCxHuIYVNy6aiLypdnTp0\u002B/3Ql4/Pjx7WazOeO67vF6vU46ne50suu69AKJdKJ1FEvZqrAJ9u9bs/c92H6WjXu/u9F1XQeIHccJDIC5ublbjuNsPHDgwI/WrVuntmzZEvf29gb5fN4TQjy2bXv2zp07l27cuPFLrXREFD/FEzRh289gy/dAxZHruo7jOK7jOAGr2johhOgplUrFiYmJr2zevHnd/fv3bcuyvGq1\u002BrBarf770aNHn4dh6MRy\u002BQ9i4Z2vsnwdgmUIAsjsg2wRNr7x8brn9o87jvOFp9uKBGC265lfmdHR0QGt9QWt9bJ\u002BKldr/ZdTp07tXzv\u002Bv6t2M/alcKmuAAAAAElFTkSuQmCC",
+              "WhenOpened": "2025-10-27T11:24:51.518Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "login.html",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\login.html",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\templates\\login.html",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\templates\\login.html",
+              "RelativeToolTip": "Shiankang0.0.1\\templates\\login.html",
+              "ViewState": "AgIAAO4CAAAAAAAAAAAqwA4DAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-16T12:49:12.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "recommend.js",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\static\\js\\recommend.js",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\static\\js\\recommend.js",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\static\\js\\recommend.js",
+              "RelativeToolTip": "Shiankang0.0.1\\static\\js\\recommend.js",
+              "ViewState": "AgIAACgBAAAAAAAAAAAuwDYBAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-11-06T12:12:56.985Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "test_app.py",
+              "DocumentMoniker": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\backend\\test_app.py",
+              "RelativeDocumentMoniker": "Shiankang0.0.1\\backend\\test_app.py",
+              "ToolTip": "C:\\Users\\\u9A9E\\source\\repos\\Shiankang0.0.1\\Shiankang0.0.1\\backend\\test_app.py",
+              "RelativeToolTip": "Shiankang0.0.1\\backend\\test_app.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAXOSURBVEhLhZZdbBTXGYafM7s7610v68XGxgECuEaLAW8NCJIoCviiWErbKOlF\u002BWtuWiEuqNLetFK5iqpWvegFaq\u002BqNqoqkSrgVpWKiIqrRlDUBpRQW0YbBclbfgobLbGMvd7Z\u002BT8z5/Ri14trIvWVPs1Ic/S\u002B5zxzvjkjaCkHJNr3/08R4AJ67YNnpHVrzLFjx96am5urzM7OTtu2rSzLUs1mUy0vLyvXdVW9Xle1Wk3dvn1bzczM1M6dO3c2k8nk1/p9kRIAe/bseaFQKNTv3bv3fqlUeh1ACEEYhoRhiO/7NBoNlFI0Go3c4cOHDxSLxczly5c/AuRa02d0/Pjxt2zbDizL8jzPU57nKd/3VRAESkqppJQqiiLlOI4ql8uqVqupWq2mLl68\u002BPNEIpFb67daCYDR0dEXhBDVmzdvvjs2NvZ1KSVKKeI4xjRNDMNACEEikcCyLJRS3L17l507d5ZSqZSenp6eVUqFa81ZHXDmzJnvjIyM7C0UCv3pdJpUKoVpmgghOu8qjmMajQaDg4Nks1kMw0iPjo7uLxaL4dTU1L\u002BAeG2AQZv31atXpyYnJ98JgoClpSWWlpZYWFjAsizm5\u002BdZWlpCSonneTx48IB6vc6tW7funz179rdjY2PfBwbWmrMSAFAqlXaOj48fTCaTJJNJoigijmOklGSzWdLpNEIItm7dytDQEMPDwxw8eDB/4sSJ7ZlMpgBk/te6pQ6i4eHh5x4\u002BfFgrFosv\u002Bb5PJpPBNE26u7sxDAPDMGg2m4RhSHd3N\u002Bl0mnw\u002Bnx0ZGdnd19eXPHLkSGZxcbFSqVQWVwckafeDEGI5l8t9trIlV0KEEDQaDQqFAo7jkEhnufDxY/5WfsRnnz9BSJ\u002B0ITm8e/Op37373tah5ze95jhOZ\u002Bt2EA0ODo5t2LDh1a6uLvr6\u002Bsjn8ySTSQB6e3sBGBgYIEp103AD3n6jBFGIiEOk7/GP6U\u002BZrTwaB1IrnqwOqFQqH1YqlQu2bTM/P08cx1SrVRYWFoiiCMuyiKIIrTR/nXnAjydvIuKgVVGACn2iUJqAWB3QQXTo0KE3pZTfzOVyZDIZtNYMDQ0BoA0TP2ng\u002BRrQ/OrUS6A1luPym0v/pHK/gVABQsc0Fz9torUkuf7ql/e98u0WA\u002BDatWuTi4uL5ZMnT/7atm1M0ySRSJBMJnlv9gl/\u002Bug/yMDFiHyMyEPEAUbkYUi/vZI29toPIbBTZF95tVwu/6KDaGJi4s2jR4/\u002BNJVK0dPTQzabxTRNcrkcl2aqyLBtpAJEHCKiABGFCBUi4ugpFxlC4MLiBwBfM2gjunLlyuT58\u002Bd/srprLcvCMAw818WIfYw4YH3aYNfmAnue72P3tg3s2tbPrqFN7N25nU09NoQ\u002BRCH4DYCeDqJ9\u002B/a9GATBkNYarTVKKQyjtUDR3i0iCvnBif28PFwhZSjQCYhNiCKIA2j\u002BEZp2axVh69PUQVQulz\u002B5fv36h0opViqOY7TWpEXUxhFwaM96UnIK/A/AmQLrfahfgid/BvsTCINWQKwAvA6i/v7\u002B7h07dnSvmEspCYKAIAgY391PComIAgxDgFYQSZBBq6K2aRi0Zi4l9BwA\u002BHsHUSKR2BCGofR9H8/zME2Trq4uLMviWy9/iRd3DBBLCVqDilqcVQYK3wCxHuIYVNy6aiLypdnTp0\u002B/3Ql4/Pjx7WazOeO67vF6vU46ne50suu69AKJdKJ1FEvZqrAJ9u9bs/c92H6WjXu/u9F1XQeIHccJDIC5ublbjuNsPHDgwI/WrVuntmzZEvf29gb5fN4TQjy2bXv2zp07l27cuPFLrXREFD/FEzRh289gy/dAxZHruo7jOK7jOAGr2johhOgplUrFiYmJr2zevHnd/fv3bcuyvGq1\u002BrBarf770aNHn4dh6MRy\u002BQ9i4Z2vsnwdgmUIAsjsg2wRNr7x8brn9o87jvOFp9uKBGC265lfmdHR0QGt9QWt9bJ\u002BKldr/ZdTp07tXzv\u002Bv6t2M/alcKmuAAAAAElFTkSuQmCC",
+              "WhenOpened": "2025-10-30T07:43:49.757Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

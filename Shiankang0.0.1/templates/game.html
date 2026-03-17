@@ -1,0 +1,1779 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康冒险者物语 - 游戏界面</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== 新海诚风格配色 ===== */
+        :root {
+            --sky-blue: #87CEEB;
+            --deep-blue: #4169E1;
+            --sunset-orange: #FF7F50;
+            --cherry-pink: #FFB6C1;
+            --mint-green: #98FB98;
+            --soft-yellow: #FFD700;
+            --light-purple: #DDA0DD;
+            --gradient-bg: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            --gradient-ui: linear-gradient(135deg, rgba(135, 206, 235, 0.9), rgba(65, 105, 225, 0.9));
+            --gradient-card: linear-gradient(135deg, rgba(255, 182, 193, 0.9), rgba(255, 215, 0, 0.9));
+            --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'Segoe UI', 'Arial Rounded MT Bold', sans-serif;
+        }
+
+        body {
+            background: var(--gradient-bg);
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 新海诚风格背景装饰 */
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+
+            .cloud:nth-child(1) {
+                width: 200px;
+                height: 80px;
+                top: 10%;
+                left: 10%;
+                animation: float 20s infinite linear;
+            }
+
+            .cloud:nth-child(2) {
+                width: 150px;
+                height: 60px;
+                top: 30%;
+                right: 15%;
+                animation: float 25s infinite linear reverse;
+            }
+
+            .cloud:nth-child(3) {
+                width: 180px;
+                height: 70px;
+                bottom: 20%;
+                left: 20%;
+                animation: float 22s infinite linear;
+            }
+
+        @keyframes float {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+
+            50% {
+                transform: translateX(50px) translateY(-20px);
+            }
+
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+        }
+
+        /* ===== 游戏主容器 ===== */
+        .game-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 30px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== 火影风格导航栏 ===== */
+        .nav-sidebar {
+            width: 280px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 30px 20px;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .nav-sidebar::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: conic-gradient(transparent, rgba(255, 215, 0, 0.3), transparent 30%);
+                animation: rotate 10s linear infinite;
+                z-index: -1;
+            }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .nav-logo {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.5);
+        }
+
+            .nav-logo h2 {
+                font-size: 28px;
+                background: linear-gradient(45deg, #FFD700, #FF7F50);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+                margin-bottom: 5px;
+                letter-spacing: 2px;
+            }
+
+            .nav-logo p {
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.7);
+                font-style: italic;
+            }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .nav-item::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                transition: left 0.5s;
+            }
+
+            .nav-item:hover::before {
+                left: 100%;
+            }
+
+            .nav-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 215, 0, 0.5);
+                transform: translateX(10px) scale(1.05);
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            }
+
+            .nav-item.active {
+                background: var(--gradient-ui);
+                border-color: #FFD700;
+                transform: translateX(10px);
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            }
+
+            .nav-item i {
+                font-size: 22px;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                transition: all 0.3s;
+            }
+
+            .nav-item:hover i {
+                transform: rotate(15deg) scale(1.2);
+                background: rgba(255, 215, 0, 0.2);
+            }
+
+        .nav-text {
+            flex: 1;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: var(--text-shadow);
+        }
+
+        .nav-badge {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        /* ===== 主内容区域 ===== */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* ===== 顶部状态栏 ===== */
+        .status-bar {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .status-bar::after {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(45deg, #FF7F50, #FFD700, #FFB6C1, #98FB98);
+                border-radius: 25px;
+                z-index: -1;
+                animation: borderGlow 4s linear infinite;
+            }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FFB6C1, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+            .location i {
+                font-size: 28px;
+                color: #FFD700;
+                animation: pulse 2s infinite;
+            }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .resource-display {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+            .resource-item:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+            }
+
+        .gold-display i {
+            color: #FFD700;
+        }
+
+        .health-display i {
+            color: #FF69B4;
+        }
+
+        /* 用户信息区域 */
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: auto;
+        }
+
+            .user-area span {
+                font-size: 16px;
+                color: #FFD700;
+            }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+            .logout-btn:hover {
+                background: rgba(255, 215, 0, 0.2);
+                transform: translateY(-2px);
+            }
+
+        /* ===== 卡通忍者角色样式 ===== */
+        .character-card {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px;
+            border: 3px solid rgba(255, 182, 193, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(255, 182, 193, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .character-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 5px;
+                background: linear-gradient(90deg, transparent, #FFB6C1, #FFD700, #FF7F50, transparent);
+                animation: shine 3s linear infinite;
+            }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .character-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .character-main-title {
+            font-size: 36px;
+            background: linear-gradient(45deg, #FFB6C1, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .character-main-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+        }
+
+        .character-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .character-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .character-ninja-display {
+            position: relative;
+            width: 280px;
+            height: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ninja-avatar {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 50%;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.5);
+            z-index: 3;
+            border: 3px solid #f0f0f0;
+        }
+
+        .ninja-headband {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 22px;
+            background: linear-gradient(90deg, #E63946, #457B9D);
+            border-radius: 12px;
+            z-index: 4;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+            .ninja-headband::after {
+                content: '✦';
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 16px;
+                color: #FFD700;
+                font-weight: bold;
+                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            }
+
+        .ninja-eyemask {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 16px;
+            background: linear-gradient(90deg, #2C3E50, #34495E);
+            border-radius: 10px;
+            z-index: 4;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+            .ninja-eyemask::before,
+            .ninja-eyemask::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 10px;
+                height: 10px;
+                background: #FFFFFF;
+                border-radius: 50%;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            }
+
+            .ninja-eyemask::before {
+                left: 15px;
+            }
+
+            .ninja-eyemask::after {
+                right: 15px;
+            }
+
+        .ninja-body {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-top: 120px solid #1a2f4e;
+            z-index: 2;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+            position: relative;
+        }
+
+            .ninja-body::after {
+                content: '';
+                position: absolute;
+                top: -60px;
+                left: -30px;
+                width: 60px;
+                height: 15px;
+                background: linear-gradient(90deg, #8B4513, #A0522D);
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            }
+
+        .ninja-sword {
+            position: absolute;
+            right: 0px;
+            top: 123px;
+            width: 100px;
+            height: 200px;
+            z-index: 15;
+            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.5));
+            transform: rotate(-15deg);
+            transform-origin: top left;
+        }
+
+            .ninja-sword .handle {
+                position: absolute;
+                top: 60px;
+                left: 95px;
+                width: 60px;
+                height: 11px;
+                background: linear-gradient(90deg, #8B0000, #5A0000, #8B0000);
+                border-radius: 2px;
+                z-index: 16;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            }
+
+            .ninja-sword .tsuba {
+                position: absolute;
+                top: 58px;
+                left: 152px;
+                width: 13px;
+                height: 18px;
+                background: linear-gradient(135deg, #708090, #4A5568, #708090);
+                border-radius: 3px;
+                z-index: 18;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+            }
+
+            .ninja-sword .blade {
+                position: absolute;
+                top: 60px;
+                left: 160px;
+                width: 140px;
+                height: 10px;
+                background: linear-gradient(90deg, #B0C4DE, #E8F4FD, #B0C4DE);
+                transform: skewY(-2deg);
+                transform-origin: left center;
+                z-index: 14;
+                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                border-radius: 1px 40% 40% 1px;
+            }
+
+                .ninja-sword .blade .metal-texture {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: repeating-linear-gradient( 45deg, transparent, transparent 5px, rgba(255, 255, 255, 0.1) 5px, rgba(255, 255, 255, 0.1) 10px );
+                    pointer-events: none;
+                }
+
+        .ninja-arm-left {
+            position: absolute;
+            top: 95px;
+            left: -30px;
+            width: 20px;
+            height: 60px;
+            background: linear-gradient(180deg, #1e3658, #162b48);
+            border-radius: 10px 10px 8px 8px;
+            transform: rotate(-15deg);
+            z-index: 1;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+            .ninja-arm-left::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: -2px;
+                width: 26px;
+                height: 15px;
+                background: linear-gradient(180deg, #8B4513, #654321);
+                border-radius: 5px 5px 8px 8px;
+            }
+
+        .ninja-arm-right {
+            position: absolute;
+            top: 95px;
+            right: -32px;
+            width: 22px;
+            height: 65px;
+            background: linear-gradient(180deg, #1e3658, #162b48);
+            border-radius: 15px 15px 10px 10px;
+            transform: rotate(5deg);
+            z-index: 8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+            .ninja-arm-right::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                right: -2px;
+                width: 30px;
+                height: 25px;
+                background: linear-gradient(135deg, #8B4513, #654321);
+                border-radius: 15px 15px 20px 20px;
+                z-index: 9;
+                box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.4);
+                transform: rotate(0deg);
+            }
+
+        .character-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .character-name {
+            font-size: 32px;
+            background: linear-gradient(45deg, #FFD700, #FF7F50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .character-title {
+            font-size: 24px;
+            color: #87CEEB;
+            font-weight: bold;
+        }
+
+        .character-description {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+        }
+
+        .character-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .character-purchase-section {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .purchase-health-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+            .purchase-health-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            }
+
+        /* ===== 属性卡片样式 ===== */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .stat-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: var(--gradient-card);
+                opacity: 0;
+                transition: opacity 0.3s;
+                z-index: -1;
+            }
+
+            .stat-card:hover::before {
+                opacity: 0.3;
+            }
+
+            .stat-card:hover {
+                transform: translateY(-10px) scale(1.02);
+                border-color: rgba(255, 255, 255, 0.2);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 182, 193, 0.2);
+            }
+
+            .stat-card .mini-purchase-btn {
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: all 0.3s ease;
+                z-index: 2;
+            }
+
+            .stat-card:hover .mini-purchase-btn {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+
+            .stat-card .mini-purchase-btn:hover {
+                background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+                transform: scale(1.2);
+                box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+            }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .atk .stat-icon {
+            background: linear-gradient(135deg, rgba(255, 99, 71, 0.9), rgba(255, 69, 0, 0.9));
+            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3);
+        }
+
+        .def .stat-icon {
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.9), rgba(0, 191, 255, 0.9));
+            box-shadow: 0 10px 20px rgba(0, 191, 255, 0.3);
+        }
+
+        .hp .stat-icon {
+            background: linear-gradient(135deg, rgba(50, 205, 50, 0.9), rgba(0, 255, 127, 0.9));
+            box-shadow: 0 10px 20px rgba(0, 255, 127, 0.3);
+        }
+
+        .stat-details {
+            flex: 1;
+        }
+
+        .stat-name {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-shadow: var(--text-shadow);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, white, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-bar-container {
+            background: rgba(255, 255, 255, 0.1);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .stat-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .atk .stat-fill {
+            background: linear-gradient(90deg, #FF4500, #FF6347);
+        }
+
+        .def .stat-fill {
+            background: linear-gradient(90deg, #1E90FF, #00BFFF);
+        }
+
+        .hp .stat-fill {
+            background: linear-gradient(90deg, #32CD32, #00FF7F);
+        }
+
+        .upgrade-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 165, 0, 0.9));
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .upgrade-btn::before {
+                content: '+';
+                position: absolute;
+                font-size: 32px;
+                font-weight: bold;
+            }
+
+            .upgrade-btn:hover {
+                transform: rotate(180deg) scale(1.1);
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.3);
+            }
+
+            .upgrade-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+        .upgrade-cost-display {
+            font-size: 14px;
+            color: #FFD700;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .cost-value {
+            color: #FF4500;
+            font-size: 16px;
+        }
+
+        /* ===== 任务区域样式 ===== */
+        .tasks-section {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px;
+            border: 3px solid rgba(255, 182, 193, 0.3);
+            box-shadow: var(--box-shadow);
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(45deg, #FFB6C1, #98FB98);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
+        }
+
+            .section-title i {
+                font-size: 32px;
+                color: #FFD700;
+            }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .task-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .task-item::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+                transition: left 0.5s;
+            }
+
+            .task-item:hover::before {
+                left: 100%;
+            }
+
+            .task-item:hover {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 182, 193, 0.3);
+                transform: translateX(10px);
+            }
+
+        .task-checkbox {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+            .task-checkbox:hover {
+                border-color: #FFD700;
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            }
+
+            .task-checkbox.completed {
+                background: linear-gradient(135deg, #32CD32, #00FF7F);
+                border-color: #32CD32;
+                box-shadow: 0 0 15px rgba(50, 205, 50, 0.5);
+            }
+
+                .task-checkbox.completed::after {
+                    content: '✓';
+                    color: white;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .task-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+
+        .task-progress {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B6B, #FF8E53, #FFD700);
+            border-radius: 4px;
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .progress-fill::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                animation: progressShine 2s infinite;
+            }
+
+        @keyframes progressShine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .task-reward {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .reward-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reward-gold i {
+            color: #FFD700;
+        }
+
+        .reward-exp i {
+            color: #87CEEB;
+        }
+
+        /* ===== 购买面板 ===== */
+        .purchase-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .purchase-content {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 42, 108, 0.9));
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .purchase-header h3 {
+            font-size: 28px;
+            background: linear-gradient(45deg, #FFD700, #FF7F50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .purchase-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .purchase-option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+            .purchase-option:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-5px);
+            }
+
+            .purchase-option.selected {
+                border-color: #FFD700;
+                background: rgba(255, 215, 0, 0.1);
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            }
+
+        .purchase-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .purchase-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .purchase-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .purchase-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .purchase-confirm {
+            background: linear-gradient(45deg, #FF7F50, #FFD700);
+            color: white;
+        }
+
+        .purchase-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* ===== 加载动画 ===== */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .ninja-loader {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+
+            .ninja-loader::before,
+            .ninja-loader::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                border: 8px solid transparent;
+                border-top-color: #FF7F50;
+                animation: spin 1.5s linear infinite;
+            }
+
+            .ninja-loader::after {
+                border-top-color: #4169E1;
+                animation: spin 2s linear infinite reverse;
+            }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            margin-top: 30px;
+            font-size: 24px;
+            background: linear-gradient(45deg, #FF7F50, #FFD700, #87CEEB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulseText 2s infinite;
+        }
+
+        @keyframes pulseText {
+            0%,100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-decoration">
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+    </div>
+
+    <!-- 加载动画 -->
+    <div class="loading" id="loading" style="display: none;">
+        <div class="ninja-loader"></div>
+        <div class="loading-text">忍法·加载中...</div>
+    </div>
+
+    <!-- 购买面板 -->
+    <div class="purchase-panel" id="purchasePanel">
+        <div class="purchase-content">
+            <div class="purchase-header">
+                <h3><i class="fas fa-shopping-cart"></i> 购买健康点</h3>
+                <p>用金币购买健康点，增强你的属性！</p>
+            </div>
+            <div class="purchase-options" id="purchaseOptions">
+                <!-- JS动态生成 -->
+            </div>
+            <div class="purchase-info">
+                <div class="purchase-summary">
+                    已选择: <span id="selectedAmount">0</span> 健康点 | 总计: <span id="totalCost">0</span> 金币
+                </div>
+                <div class="purchase-daily">
+                    今日已购买: <span id="dailyPurchased">0</span>/20 健康点
+                </div>
+            </div>
+            <div class="purchase-actions">
+                <button class="purchase-btn purchase-cancel" onclick="hidePurchasePanel()">取消</button>
+                <button class="purchase-btn purchase-confirm" onclick="confirmPurchase()">确认购买</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <!-- 导航侧栏 -->
+        <div class="nav-sidebar">
+            <div class="nav-logo">
+                <h2>健康冒险者物语</h2>
+                <p>Health Adventure Story</p>
+            </div>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-user-ninja"></i>
+                <span class="nav-text">个人档案</span>
+                <span class="nav-badge" id="level-badge">Lv.1</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-compass"></i>
+                <span class="nav-text">探索冒险</span>
+                <span class="nav-badge">新</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-tasks"></i>
+                <span class="nav-text">任务挑战</span>
+                <span class="nav-badge" id="task-count">3</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span class="nav-text">战斗报告</span>
+                <span class="nav-badge">分析</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-question-circle"></i>
+                <span class="nav-text">帮助指南</span>
+            </a>
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="text-align: center; color: rgba(255,255,255,0.6); font-size: 12px;">
+                    健康值：<span style="color: #98FB98;" id="healthStatus">100/100</span><br>
+                    今日步数：<span style="color: #87CEEB;">5,280</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- 顶部状态栏 -->
+            <div class="status-bar fade-in">
+                <div class="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>第1层第1关 · 健康之路</span>
+                </div>
+                <div class="resource-display">
+                    <div class="resource-item gold-display" id="goldDisplay">
+                        <i class="fas fa-coins"></i>
+                        <span id="goldAmount">100</span>
+                    </div>
+                    <div class="resource-item health-display">
+                        <i class="fas fa-heart"></i>
+                        <span id="healthPoints">10</span>
+                    </div>
+                </div>
+                <div class="user-area">
+                    <span><i class="fas fa-user"></i> <span id="currentUsername"></span></span>
+                    <button class="logout-btn" onclick="logout()">登出</button>
+                </div>
+            </div>
+
+            <!-- 角色卡片 -->
+            <div class="character-card fade-in">
+                <div class="character-header">
+                    <h1 class="character-main-title">忍者冒险者</h1>
+                    <div class="character-main-subtitle">影之刺客</div>
+                </div>
+                <div class="character-details">
+                    <div class="character-left">
+                        <div class="character-ninja-display">
+                            <div class="ninja-avatar">
+                                <div class="ninja-headband"></div>
+                                <div class="ninja-eyemask"></div>
+                                <div class="ninja-body"></div>
+                                <div class="ninja-arm-left"></div>
+                                <div class="ninja-arm-right"></div>
+                                <div class="ninja-sword">
+                                    <div class="handle"></div>
+                                    <div class="tsuba"></div>
+                                    <div class="blade"><div class="metal-texture"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="character-right">
+                        <h2 class="character-name">影之忍者</h2>
+                        <div class="character-title">暗影刺客</div>
+                        <div class="character-description">在暗夜中行动，一击必杀的忍者</div>
+                        <div class="character-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">等级</span>
+                                <span class="stat-value" id="levelValue">Lv.1</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">经验值</span>
+                                <span class="stat-value" id="expValue">0/100</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">金币</span>
+                                <span class="stat-value" id="goldStat">100</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">健康点</span>
+                                <span class="stat-value" id="healthStat">10</span>
+                            </div>
+                        </div>
+                        <div class="character-purchase-section">
+                            <button class="purchase-health-btn" onclick="showPurchasePanel()">
+                                <i class="fas fa-shopping-cart"></i> 购买健康点
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 属性卡片 -->
+            <div class="stats-section">
+                <div class="stat-card atk fade-in">
+                    <div class="stat-icon"><i class="fas fa-fist-raised"></i></div>
+                    <div class="stat-details">
+                        <div class="stat-name">攻击力 (ATK)</div>
+                        <div class="stat-value" id="atkValue">15</div>
+                        <div class="stat-bar-container"><div class="stat-fill" id="atkBar" style="width: 70%"></div></div>
+                        <div class="upgrade-cost-display">升级需要: <span class="cost-value" id="atkCost">5</span> 健康点</div>
+                    </div>
+                    <button class="upgrade-btn" onclick="upgradeStat('atk')"></button>
+                    <button class="mini-purchase-btn" onclick="showPurchasePanel()" title="购买健康点"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="stat-card def fade-in">
+                    <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="stat-details">
+                        <div class="stat-name">防御力 (DEF)</div>
+                        <div class="stat-value" id="defValue">10</div>
+                        <div class="stat-bar-container"><div class="stat-fill" id="defBar" style="width: 60%"></div></div>
+                        <div class="upgrade-cost-display">升级需要: <span class="cost-value" id="defCost">5</span> 健康点</div>
+                    </div>
+                    <button class="upgrade-btn" onclick="upgradeStat('def')"></button>
+                    <button class="mini-purchase-btn" onclick="showPurchasePanel()"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="stat-card hp fade-in">
+                    <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                    <div class="stat-details">
+                        <div class="stat-name">生命值 (HP)</div>
+                        <div class="stat-value" id="hpValue">100/100</div>
+                        <div class="stat-bar-container"><div class="stat-fill" id="hpBar" style="width: 100%"></div></div>
+                        <div class="upgrade-cost-display">升级需要: <span class="cost-value" id="hpCost">8</span> 健康点</div>
+                    </div>
+                    <button class="upgrade-btn" onclick="upgradeStat('hp')"></button>
+                    <button class="mini-purchase-btn" onclick="showPurchasePanel()"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <!-- 任务区域 -->
+            <div class="tasks-section fade-in">
+                <h3 class="section-title"><i class="fas fa-tasks"></i> 今日任务</h3>
+                <div class="task-list" id="taskList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== 全局变量 ==========
+        let currentUser = null;
+        let gameState = {
+            gold: 100,
+            healthPoints: 10,
+            atk: 15,
+            def: 10,
+            hp: 100,
+            maxHp: 100,
+            exp: 0,
+            expToNext: 100,
+            level: 1,
+            dailyPurchased: 0
+        };
+        let selectedPurchaseAmount = 0;
+        let selectedPurchaseCost = 0;
+
+        // 任务数据
+        const tasks = [
+            { id: 1, name: "完成今日饮食管理", description: "记录并完成今日的饮食计划", progress: 0, maxProgress: 2, completed: false, reward: { gold: 50, exp: 20 } },
+            { id: 2, name: "运动40分钟", description: "坚持40分钟中等强度运动", progress: 0, maxProgress: 1, completed: false, reward: { gold: 30, exp: 15 } },
+            { id: 3, name: "喝水1.5L", description: "保证充足水分摄入", progress: 0, maxProgress: 1, completed: false, reward: { gold: 20, exp: 10 } }
+        ];
+
+        // ========== 初始化 ==========
+        document.addEventListener('DOMContentLoaded', async function () {
+            // 检查登录状态
+            const userStr = localStorage.getItem('currentUser');
+            if (!userStr) {
+                window.location.href = '/login';
+                return;
+            }
+            currentUser = JSON.parse(userStr);
+            document.getElementById('currentUsername').textContent = currentUser.username;
+
+            // 加载游戏进度
+            await loadGameProgress();
+
+            // 渲染UI
+            renderTasks();
+            updateAllUI();
+            setupPurchaseOptions();
+            startAmbientAnimations();
+        });
+
+        // ========== 加载游戏进度 ==========
+        async function loadGameProgress() {
+            showLoading(true);
+            try {
+                const res = await fetch(`/api/load_progress/${currentUser.username}`);
+                const data = await res.json();
+                if (data.success && data.progress) {
+                    gameState = { ...gameState, ...data.progress };
+                } else {
+                    // 使用默认值
+                }
+            } catch (err) {
+                console.error('加载进度失败，使用默认值', err);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ========== 保存游戏进度 ==========
+        async function saveGameProgress() {
+            if (!currentUser) return;
+            try {
+                await fetch('/api/save_progress', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: currentUser.username, progress: gameState })
+                });
+            } catch (err) {
+                console.error('保存进度失败', err);
+            }
+        }
+
+        // ========== 登出 ==========
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/login';
+        }
+
+        // ========== 显示/隐藏加载 ==========
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'flex' : 'none';
+        }
+
+        // ========== 渲染任务 ==========
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach((task, idx) => {
+                const progressPercent = (task.progress / task.maxProgress) * 100;
+                const item = document.createElement('div');
+                item.className = 'task-item fade-in';
+                item.dataset.taskId = task.id;
+                item.innerHTML = `
+                        <div class="task-checkbox ${task.completed ? 'completed' : ''}" onclick="completeTask(${task.id})"></div>
+                        <div class="task-content">
+                            <div class="task-name">${task.name}</div>
+                            <div class="task-description">${task.description}</div>
+                            <div class="task-progress">
+                                <span>进度: ${task.progress}/${task.maxProgress}</span>
+                                <div class="progress-bar"><div class="progress-fill" style="width: ${progressPercent}%"></div></div>
+                            </div>
+                        </div>
+                        <div class="task-reward">
+                            <div class="reward-item reward-gold"><i class="fas fa-coins"></i>+${task.reward.gold}</div>
+                            <div class="reward-item reward-exp"><i class="fas fa-star"></i>+${task.reward.exp}</div>
+                        </div>
+                    `;
+                taskList.appendChild(item);
+            });
+        }
+
+        // ========== 完成任务 ==========
+        async function completeTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task || task.completed) return;
+            task.progress++;
+            if (task.progress >= task.maxProgress) {
+                task.completed = true;
+                gameState.gold += task.reward.gold;
+                gameState.exp += task.reward.exp;
+                checkLevelUp();
+                showNotification(`任务完成！获得${task.reward.gold}金币和${task.reward.exp}经验`, 'success');
+            }
+            updateTaskUI(taskId);
+            updateAllUI();
+            await saveGameProgress();
+        }
+
+        function updateTaskUI(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            const el = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+            if (!el) return;
+            const checkbox = el.querySelector('.task-checkbox');
+            const progressSpan = el.querySelector('.task-progress span');
+            const fill = el.querySelector('.progress-fill');
+            if (checkbox) {
+                checkbox.classList.toggle('completed', task.completed);
+                checkbox.innerHTML = task.completed ? '✓' : '';
+            }
+            if (progressSpan) progressSpan.textContent = `进度: ${task.progress}/${task.maxProgress}`;
+            if (fill) fill.style.width = `${(task.progress / task.maxProgress) * 100}%`;
+        }
+
+        function checkLevelUp() {
+            while (gameState.exp >= gameState.expToNext) {
+                gameState.level++;
+                gameState.exp -= gameState.expToNext;
+                gameState.expToNext = 100 + (gameState.level - 1) * 50;
+                showNotification(`升级啦！当前等级 Lv.${gameState.level}`, 'success');
+            }
+        }
+
+        // ========== 更新UI ==========
+        function updateAllUI() {
+            document.getElementById('goldAmount').textContent = gameState.gold;
+            document.getElementById('goldStat').textContent = gameState.gold;
+            document.getElementById('healthPoints').textContent = gameState.healthPoints;
+            document.getElementById('healthStat').textContent = gameState.healthPoints;
+            document.getElementById('expValue').textContent = `${gameState.exp}/${gameState.expToNext}`;
+            document.getElementById('levelValue').textContent = `Lv.${gameState.level}`;
+            document.getElementById('level-badge').textContent = `Lv.${gameState.level}`;
+            document.getElementById('atkValue').textContent = gameState.atk;
+            document.getElementById('defValue').textContent = gameState.def;
+            document.getElementById('hpValue').textContent = `${gameState.hp}/${gameState.maxHp}`;
+            document.getElementById('atkBar').style.width = `${(gameState.atk / 30) * 100}%`;
+            document.getElementById('defBar').style.width = `${(gameState.def / 30) * 100}%`;
+            document.getElementById('hpBar').style.width = `${(gameState.hp / gameState.maxHp) * 100}%`;
+            document.getElementById('atkCost').textContent = 3 + gameState.atk;
+            document.getElementById('defCost').textContent = 4 + gameState.def;
+            document.getElementById('hpCost').textContent = 2 + Math.floor(gameState.maxHp / 20);
+            document.getElementById('dailyPurchased').textContent = gameState.dailyPurchased;
+        }
+
+        // ========== 升级属性 ==========
+        async function upgradeStat(stat) {
+            let cost = 0;
+            if (stat === 'atk') {
+                cost = 3 + gameState.atk;
+                if (gameState.healthPoints < cost) { showNotification('健康点不足！', 'error'); return; }
+                gameState.healthPoints -= cost;
+                gameState.atk += 3;
+            } else if (stat === 'def') {
+                cost = 4 + gameState.def;
+                if (gameState.healthPoints < cost) { showNotification('健康点不足！', 'error'); return; }
+                gameState.healthPoints -= cost;
+                gameState.def += 4;
+            } else if (stat === 'hp') {
+                cost = 2 + Math.floor(gameState.maxHp / 20);
+                if (gameState.healthPoints < cost) { showNotification('健康点不足！', 'error'); return; }
+                gameState.healthPoints -= cost;
+                gameState.maxHp += 20;
+                gameState.hp = gameState.maxHp;
+            }
+            updateAllUI();
+            await saveGameProgress();
+            showNotification(`${stat.toUpperCase()} 升级成功！`, 'success');
+        }
+
+        // ========== 购买面板 ==========
+        function showPurchasePanel() {
+            document.getElementById('purchasePanel').style.display = 'flex';
+        }
+        function hidePurchasePanel() {
+            document.getElementById('purchasePanel').style.display = 'none';
+            selectedPurchaseAmount = 0;
+        }
+        function setupPurchaseOptions() {
+            const opts = [1, 5, 10, 20];
+            const container = document.getElementById('purchaseOptions');
+            container.innerHTML = '';
+            opts.forEach(amt => {
+                const cost = amt <= 5 ? amt * 50 : (amt <= 10 ? 250 + (amt - 5) * 60 : (amt <= 15 ? 250 + 300 + (amt - 10) * 70 : 250 + 300 + 350 + (amt - 15) * 80));
+                const opt = document.createElement('div');
+                opt.className = 'purchase-option';
+                opt.innerHTML = `<div class="purchase-amount">${amt}</div><div class="purchase-price">${cost}金币</div>`;
+                opt.onclick = () => {
+                    selectedPurchaseAmount = amt;
+                    selectedPurchaseCost = cost;
+                    document.querySelectorAll('.purchase-option').forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                    document.getElementById('selectedAmount').textContent = amt;
+                    document.getElementById('totalCost').textContent = cost;
+                };
+                container.appendChild(opt);
+            });
+        }
+        async function confirmPurchase() {
+            if (selectedPurchaseAmount === 0) { alert('请选择数量'); return; }
+            if (gameState.gold < selectedPurchaseCost) { showNotification('金币不足！', 'error'); return; }
+            if (gameState.dailyPurchased + selectedPurchaseAmount > 20) { showNotification('今日已达上限', 'error'); return; }
+            gameState.gold -= selectedPurchaseCost;
+            gameState.healthPoints += selectedPurchaseAmount;
+            gameState.dailyPurchased += selectedPurchaseAmount;
+            updateAllUI();
+            await saveGameProgress();
+            showNotification(`成功购买${selectedPurchaseAmount}健康点`, 'success');
+            hidePurchasePanel();
+        }
+
+        // ========== 通知 ==========
+        function showNotification(msg, type) {
+            const noti = document.createElement('div');
+            noti.textContent = msg;
+            noti.style.cssText = `position:fixed; top:20px; right:20px; padding:15px 25px; background:${type === 'error' ? 'linear-gradient(135deg,#FF4500,#FF6347)' : 'linear-gradient(135deg,#32CD32,#00FF7F)'}; color:white; border-radius:10px; font-weight:bold; z-index:10000; transform:translateX(100%); transition:transform 0.3s; box-shadow:0 5px 15px rgba(0,0,0,0.3);`;
+            document.body.appendChild(noti);
+            setTimeout(() => noti.style.transform = 'translateX(0)', 10);
+            setTimeout(() => { noti.style.transform = 'translateX(100%)'; setTimeout(() => noti.remove(), 300); }, 3000);
+        }
+
+        // ========== 动画 ==========
+        function startAmbientAnimations() {
+            document.querySelectorAll('.cloud').forEach((c, i) => c.style.animationDelay = `${i * 2}s`);
+        }
+    </script>
+</body>
+</html>
