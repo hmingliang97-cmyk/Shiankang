@@ -1,0 +1,19 @@
+{
+  "username": "user0",
+  "password": "testuser",
+  "email": "testmail@000.com",
+  "createdAt": "2026-03-17 16:15:28.277301",
+  "hasCompletedQuestionnaire": true,
+  "gameProgress": {
+    "gold": 100,
+    "healthPoints": 200,
+    "atk": 15,
+    "def": 10,
+    "hp": 100,
+    "maxHp": 100,
+    "exp": 0,
+    "expToNext": 100,
+    "level": 1,
+    "dailyPurchased": 0
+  }
+}

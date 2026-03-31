@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个性化饮食推荐结果 - 健康饮食推荐系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+            header h1 {
+                font-size: 2.2rem;
+                margin-bottom: 10px;
+            }
+
+            header p {
+                font-size: 1.1rem;
+                opacity: 0.9;
+            }
+
+        .user-info {
+            background: #E8F5E9;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #C8E6C9;
+        }
+
+            .user-info div {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .user-info strong {
+                color: #2E7D32;
+                font-size: 1.1rem;
+            }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #2E7D32;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #E8F5E9;
+            display: flex;
+            align-items: center;
+        }
+
+            .section-title i {
+                margin-right: 10px;
+                font-size: 1.3rem;
+            }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .dish-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #E0E0E0;
+        }
+
+            .dish-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            }
+
+        .dish-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #F1F8E9;
+        }
+
+        .dish-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2E7D32;
+        }
+
+        .dish-score {
+            background: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .dish-body {
+            padding: 15px;
+        }
+
+        .ingredients {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .dish-tag {
+            display: inline-block;
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-right: 5px;
+        }
+
+        .meal-plan {
+            background: #F9F9F9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .meal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .meal-total {
+            font-size: 1.1rem;
+            color: #2E7D32;
+            font-weight: bold;
+        }
+
+        .meal-dish {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #E0E0E0;
+        }
+
+            .meal-dish:last-child {
+                border-bottom: none;
+            }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .nutrient-progress-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #4CAF50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+            .nutrient-progress-card:hover {
+                transform: translateY(-8px) scale(1.03);
+                box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+                border-color: rgba(0, 0, 0, 0.1);
+            }
+
+        .progress-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 10px auto;
+            transition: transform 0.3s;
+        }
+
+        .nutrient-progress-card:hover .progress-container {
+            transform: scale(1.05);
+        }
+
+        .progress-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(var(--nutrient-color) 0% var(--progress), #e0e0e0 var(--progress) 100%);
+            border-radius: 50%;
+            transition: --progress 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .progress-mask {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nutrient-progress-card:hover .progress-mask {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0,0,0,0.12);
+        }
+
+        .nutrient-display {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .nutrient-progress-card:hover .nutrient-display {
+            transform: scale(1.1);
+            color: var(--nutrient-color);
+        }
+
+        .nutrient-goal {
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+
+        .nutrient-progress-card:hover .nutrient-goal {
+            transform: translateY(2px);
+        }
+
+        .nutrient-percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--nutrient-color);
+            margin: 5px 0;
+            transition: transform 0.3s, text-shadow 0.3s;
+        }
+
+        .nutrient-progress-card:hover .nutrient-percentage {
+            transform: scale(1.15);
+            text-shadow: 0 0 8px rgba(var(--nutrient-rgb), 0.3);
+        }
+
+        .nutrient-status {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            text-align: center;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .nutrient-progress-card:hover .nutrient-status {
+            background-color: var(--nutrient-color);
+            color: white;
+            transform: translateY(3px);
+        }
+
+        .hexagon-chart-container {
+            margin-top: 40px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .hexagon-chart-title {
+            font-size: 1.3rem;
+            color: #2E7D32;
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .hexagon-chart-title i {
+                margin-right: 10px;
+                font-size: 1.2rem;
+            }
+
+        .hexagon-chart-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hexagon-canvas-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        #hexagonChart {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hexagon-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+
+        .legend-value {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #E0E0E0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #E0E0E0;
+            color: #666;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .special-attention {
+            background: #FFF3E0;
+            border-left: 4px solid #FF9800;
+        }
+
+            .special-attention .dish-header {
+                background: #FFECB3;
+            }
+
+            .special-attention .dish-name {
+                color: #E65100;
+            }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+            .empty-state i {
+                font-size: 3rem;
+                color: #BDBDBD;
+                margin-bottom: 15px;
+            }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes drawHexagon {
+            0% {
+                stroke-dashoffset: 1000;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dishes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nutrition-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .progress-container {
+                width: 130px;
+                height: 130px;
+            }
+
+            .nutrient-progress-card:hover {
+                transform: translateY(-5px) scale(1.02);
+            }
+
+            .hexagon-canvas-container {
+                width: 280px;
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>个性化饮食推荐结果</h1>
+            <p>根据您的健康状况和口味偏好生成的专属饮食方案</p>
+        </header>
+
+        <div class="user-info">
+            <div>
+                <strong>主要病症:</strong>
+                <span id="disease-name">加载中...</span>
+            </div>
+            <div>
+                <strong>严重程度:</strong>
+                <span id="severity-level">加载中...</span>
+            </div>
+            <div>
+                <strong>生成时间:</strong>
+                <span id="generation-time">加载中...</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 加载状态 -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>正在生成个性化推荐...</p>
+            </div>
+
+            <!-- 推荐菜品部分 -->
+            <div class="section" id="recommended-section" style="display: none;">
+                <h2 class="section-title">
+                    <i>✓</i> 推荐菜品
+                </h2>
+
+                <div class="dishes-grid" id="recommended-dishes">
+                    <!-- 推荐菜品将通过JavaScript动态加载 -->
+                </div>
+            </div>
+
+            <!-- 需要特别注意的菜品 -->
+            <div class="section" id="special-attention-section" style="display: none;">
+                <h2 class="section-title">
+                    <i>⚠</i> 需要特别注意的菜品
+                </h2>
+
+                <div class="dishes-grid" id="special-attention-dishes">
+                    <!-- 特别注意菜品将通过JavaScript动态加载 -->
+                </div>
+            </div>
+
+            <!-- 优化套餐推荐 -->
+            <div class="section" id="meal-plan-section" style="display: none;">
+                <h2 class="section-title">
+                    <i>🍽️</i> 优化套餐推荐
+                </h2>
+
+                <div class="meal-plan">
+                    <div class="meal-header">
+                        <h3>今日推荐套餐</h3>
+                        <div class="meal-total">总评分: <span id="meal-score">0.00</span>/4.00</div>
+                    </div>
+
+                    <div id="meal-dishes">
+                        <!-- 套餐菜品将通过JavaScript动态加载 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 营养分析 -->
+            <div class="section" id="nutrition-section" style="display: none;">
+                <h2 class="section-title">
+                    <i>📊</i> 营养分析
+                </h2>
+
+                <div class="nutrition-grid">
+                    <!-- 卡路里进度条卡片 -->
+                    <div class="nutrient-progress-card" id="calories-card">
+                        <div class="nutrition-name">卡路里 (kcal)</div>
+                        <div class="progress-container">
+                            <div class="progress-circle">
+                                <div class="progress-fill" id="calories-progress"></div>
+                                <div class="progress-mask">
+                                    <div class="nutrient-display" id="calories-display">0</div>
+                                    <div class="nutrient-goal">目标: <span id="calories-goal">2000</span></div>
+                                    <div class="nutrient-percentage" id="calories-percentage">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nutrient-status" id="calories-status">
+                            请设置您的卡路里目标
+                        </div>
+                    </div>
+
+                    <!-- 蛋白质进度条卡片 -->
+                    <div class="nutrient-progress-card" id="protein-card">
+                        <div class="nutrition-name">蛋白质 (g)</div>
+                        <div class="progress-container">
+                            <div class="progress-circle">
+                                <div class="progress-fill" id="protein-progress"></div>
+                                <div class="progress-mask">
+                                    <div class="nutrient-display" id="protein-display">0.0</div>
+                                    <div class="nutrient-goal">目标: <span id="protein-goal">60</span></div>
+                                    <div class="nutrient-percentage" id="protein-percentage">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nutrient-status" id="protein-status">
+                            蛋白质摄入情况
+                        </div>
+                    </div>
+
+                    <!-- 脂肪进度条卡片 -->
+                    <div class="nutrient-progress-card" id="fat-card">
+                        <div class="nutrition-name">脂肪 (g)</div>
+                        <div class="progress-container">
+                            <div class="progress-circle">
+                                <div class="progress-fill" id="fat-progress"></div>
+                                <div class="progress-mask">
+                                    <div class="nutrient-display" id="fat-display">0.0</div>
+                                    <div class="nutrient-goal">目标: <span id="fat-goal">65</span></div>
+                                    <div class="nutrient-percentage" id="fat-percentage">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nutrient-status" id="fat-status">
+                            脂肪摄入情况
+                        </div>
+                    </div>
+
+                    <!-- 碳水化合物进度条卡片 -->
+                    <div class="nutrient-progress-card" id="carbs-card">
+                        <div class="nutrition-name">碳水化合物 (g)</div>
+                        <div class="progress-container">
+                            <div class="progress-circle">
+                                <div class="progress-fill" id="carbs-progress"></div>
+                                <div class="progress-mask">
+                                    <div class="nutrient-display" id="carbs-display">0.0</div>
+                                    <div class="nutrient-goal">目标: <span id="carbs-goal">300</span></div>
+                                    <div class="nutrient-percentage" id="carbs-percentage">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nutrient-status" id="carbs-status">
+                            碳水化合物摄入情况
+                        </div>
+                    </div>
+
+                    <!-- 纤维素进度条卡片 -->
+                    <div class="nutrient-progress-card" id="fiber-card">
+                        <div class="nutrition-name">纤维素 (g)</div>
+                        <div class="progress-container">
+                            <div class="progress-circle">
+                                <div class="progress-fill" id="fiber-progress"></div>
+                                <div class="progress-mask">
+                                    <div class="nutrient-display" id="fiber-display">0.0</div>
+                                    <div class="nutrient-goal">目标: <span id="fiber-goal">25</span></div>
+                                    <div class="nutrient-percentage" id="fiber-percentage">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nutrient-status" id="fiber-status">
+                            纤维素摄入情况
+                        </div>
+                    </div>
+
+                    <!-- 钠进度条卡片 -->
+                    <div class="nutrient-progress-card" id="sodium-card">
+                        <div class="nutrition-name">钠 (mg)</div>
+                        <div class="progress-container">
+                            <div class="progress-circle">
+                                <div class="progress-fill" id="sodium-progress"></div>
+                                <div class="progress-mask">
+                                    <div class="nutrient-display" id="sodium-display">0.0</div>
+                                    <div class="nutrient-goal">目标: <span id="sodium-goal">2300</span></div>
+                                    <div class="nutrient-percentage" id="sodium-percentage">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nutrient-status" id="sodium-status">
+                            钠摄入情况
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 六边形数据图 -->
+                <div class="hexagon-chart-container">
+                    <h3 class="hexagon-chart-title">
+                        <i>📈</i> 营养均衡分析
+                    </h3>
+                    <div class="hexagon-chart-wrapper">
+                        <div class="hexagon-canvas-container">
+                            <svg id="hexagonChart" width="280" height="280" viewBox="0 0 280 280">
+                                <!-- 背景六边形网格 -->
+                                <g id="hexagonGrid"></g>
+                                <!-- 数据区域 -->
+                                <g id="dataArea"></g>
+                                <!-- 标签 -->
+                                <g id="labels"></g>
+                            </svg>
+                        </div>
+                        <div class="hexagon-legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #4CAF50;"></div>
+                                <span>卡路里: </span>
+                                <span class="legend-value" id="legend-calories">0%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #2196F3;"></div>
+                                <span>蛋白质: </span>
+                                <span class="legend-value" id="legend-protein">0%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #FF9800;"></div>
+                                <span>脂肪: </span>
+                                <span class="legend-value" id="legend-fat">0%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #9C27B0;"></div>
+                                <span>碳水: </span>
+                                <span class="legend-value" id="legend-carbs">0%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #00BCD4;"></div>
+                                <span>纤维: </span>
+                                <span class="legend-value" id="legend-fiber">0%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #E91E63;"></div>
+                                <span>钠: </span>
+                                <span class="legend-value" id="legend-sodium">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="actions">
+                <!-- ===== 进入健康旅程按钮 ===== -->
+                <button class="btn btn-primary" onclick="goToGame()">🎮 进入健康旅程</button>
+                <!-- ===== 返回问卷按钮 ===== -->
+                <button class="btn btn-primary" onclick="window.location.href='/questionnaire'">返回问卷</button>
+                <button class="btn btn-secondary" onclick="window.print()">打印推荐</button>
+                <button class="btn btn-secondary" onclick="regenerateRecommendation()">重新生成</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function () {
+            loadRecommendationData();
+        });
+
+        // 从本地存储加载推荐数据
+        function loadRecommendationData() {
+            const recommendationData = JSON.parse(localStorage.getItem('recommendationData'));
+
+            if (!recommendationData) {
+                showNoDataError();
+                return;
+            }
+
+            // 隐藏加载动画
+            document.getElementById('loading').style.display = 'none';
+
+            // 更新用户信息
+            document.getElementById('disease-name').textContent = recommendationData.diseaseInfo.diseaseName;
+            document.getElementById('severity-level').textContent = recommendationData.diseaseInfo.severity;
+            document.getElementById('generation-time').textContent = new Date().toLocaleString();
+
+            // 渲染推荐菜品
+            renderRecommendedDishes(recommendationData.recommendedDishes);
+
+            // 渲染需要特别注意的菜品
+            renderSpecialAttentionDishes(recommendationData.specialAttentionDishes);
+
+            // 渲染优化套餐
+            renderMealPlan(recommendationData.optimizedMealPlan);
+
+            // 更新营养分析
+            updateNutritionAnalysis(
+                recommendationData.nutritionAnalysis,
+                recommendationData.nutritionTargets || {
+                    calories: 2000,
+                    protein: 60,
+                    fat: 65,
+                    carbs: 300,
+                    fiber: 25,
+                    sodium: 2300
+                }
+            );
+
+            // 显示所有部分
+            showAllSections();
+        }
+
+        // 显示无数据错误
+        function showNoDataError() {
+            document.getElementById('loading').innerHTML = `
+                                <div class="empty-state">
+                                    <i>❌</i>
+                                    <h3>未找到推荐数据</h3>
+                                    <p>请返回问卷重新填写信息生成推荐</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='/questionnaire'">返回问卷</button>
+                                </div>
+                            `;
+        }
+
+        // 渲染推荐菜品
+        function renderRecommendedDishes(dishes) {
+            const container = document.getElementById('recommended-dishes');
+
+            if (!dishes || dishes.length === 0) {
+                container.innerHTML = `
+                                    <div class="empty-state">
+                                        <i>🍽️</i>
+                                        <h3>暂无推荐菜品</h3>
+                                        <p>请尝试调整您的偏好设置</p>
+                                    </div>
+                                `;
+                return;
+            }
+
+            container.innerHTML = dishes.map(dish => `
+                                <div class="dish-card">
+                                    <div class="dish-header">
+                                        <div class="dish-name">${dish.name}</div>
+                                        <div class="dish-score">${dish.score.toFixed(1)}</div>
+                                    </div>
+                                    <div class="dish-body">
+                                        <div class="ingredients">食材: ${dish.ingredients.join(', ')}</div>
+                                        ${dish.isLiked ? '<span class="dish-tag">❤ 您喜欢的</span>' : ''}
+                                        <span class="dish-tag">推荐指数: ${dish.score.toFixed(1)}/4.0</span>
+                                    </div>
+                                </div>
+                            `).join('');
+        }
+
+        // 渲染需要特别注意的菜品
+        function renderSpecialAttentionDishes(dishes) {
+            const container = document.getElementById('special-attention-dishes');
+
+            if (!dishes || dishes.length === 0) {
+                container.innerHTML = `
+                                    <div class="empty-state">
+                                        <i>✅</i>
+                                        <h3>无需特别注意的菜品</h3>
+                                        <p>您的饮食偏好与健康状况较为匹配</p>
+                                    </div>
+                                `;
+                return;
+            }
+
+            container.innerHTML = dishes.map(dish => `
+                                <div class="dish-card special-attention">
+                                    <div class="dish-header">
+                                        <div class="dish-name">${dish.name}</div>
+                                        <div class="dish-score">${dish.score.toFixed(1)}</div>
+                                    </div>
+                                    <div class="dish-body">
+                                        <div class="ingredients">食材: ${dish.ingredients.join(', ')}</div>
+                                        ${dish.isLiked ? '<span class="dish-tag">❤ 您喜欢的</span>' : ''}
+                                        <span class="dish-tag" style="background:#FFE0B2;color:#E65100;">需特别注意</span>
+                                    </div>
+                                </div>
+                            `).join('');
+        }
+
+        // 渲染优化套餐
+        function renderMealPlan(mealPlan) {
+            const container = document.getElementById('meal-dishes');
+
+            if (!mealPlan || !mealPlan.dishes || mealPlan.dishes.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>暂无套餐推荐数据</p></div>';
+                document.getElementById('meal-score').textContent = '0.00';
+                return;
+            }
+
+            document.getElementById('meal-score').textContent = mealPlan.totalScore.toFixed(2);
+
+            container.innerHTML = mealPlan.dishes.map(dish => `
+                                <div class="meal-dish">
+                                    <div>
+                                        <strong>${dish.name}</strong>
+                                        ${dish.isLiked ? '<span style="color:#E91E63; margin-left:8px;">❤</span>' : ''}
+                                    </div>
+                                    <div>${dish.amount.toFixed(1)} 份</div>
+                                </div>
+                            `).join('');
+        }
+
+        // 更新营养分析
+        function updateNutritionAnalysis(nutrition, targets) {
+            if (!nutrition) return;
+
+            // 初始化营养卡片
+            initializeNutrientCards();
+
+            // 更新各个营养指标
+            if (nutrition.calories !== undefined) {
+                updateNutrientProgress('calories', nutrition.calories, targets.calories);
+                setTimeout(() => animateNutrientProgress('calories'), 300);
+            }
+
+            if (nutrition.protein !== undefined) {
+                updateNutrientProgress('protein', nutrition.protein, targets.protein);
+                setTimeout(() => animateNutrientProgress('protein'), 600);
+            }
+
+            if (nutrition.fat !== undefined) {
+                updateNutrientProgress('fat', nutrition.fat, targets.fat);
+                setTimeout(() => animateNutrientProgress('fat'), 900);
+            }
+
+            if (nutrition.carbs !== undefined) {
+                updateNutrientProgress('carbs', nutrition.carbs, targets.carbs);
+                setTimeout(() => animateNutrientProgress('carbs'), 1200);
+            }
+
+            if (nutrition.fiber !== undefined) {
+                updateNutrientProgress('fiber', nutrition.fiber, targets.fiber);
+                setTimeout(() => animateNutrientProgress('fiber'), 1500);
+            }
+
+            if (nutrition.sodium !== undefined) {
+                updateNutrientProgress('sodium', nutrition.sodium, targets.sodium);
+                setTimeout(() => animateNutrientProgress('sodium'), 1800);
+            }
+
+            // 初始化六边形数据图
+            initHexagonChart(nutrition, targets);
+        }
+
+        // 初始化营养卡片
+        function initializeNutrientCards() {
+            const nutrientColors = {
+                'calories': '#4CAF50',
+                'protein': '#2196F3',
+                'fat': '#FF9800',
+                'carbs': '#9C27B0',
+                'fiber': '#00BCD4',
+                'sodium': '#E91E63'
+            };
+
+            Object.keys(nutrientColors).forEach(nutrientId => {
+                const progressElement = document.getElementById(`${nutrientId}-progress`);
+                if (progressElement) {
+                    progressElement.style.setProperty('--nutrient-color', nutrientColors[nutrientId]);
+                }
+            });
+
+            const nutrientCards = document.querySelectorAll('.nutrient-progress-card');
+            nutrientCards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    const nutrientId = this.id.replace('-card', '');
+                    animateNutrientProgress(nutrientId);
+                });
+            });
+        }
+
+        // 更新营养指标进度条
+        function updateNutrientProgress(nutrientId, currentValue, goalValue) {
+            if (!currentValue || !goalValue) return;
+
+            let percentage = (currentValue / goalValue) * 100;
+            percentage = Math.min(percentage, 100);
+
+            const displayElement = document.getElementById(`${nutrientId}-display`);
+            const goalElement = document.getElementById(`${nutrientId}-goal`);
+            const percentageElement = document.getElementById(`${nutrientId}-percentage`);
+
+            if (displayElement) displayElement.textContent = currentValue.toFixed(nutrientId === 'calories' ? 0 : 1);
+            if (goalElement) goalElement.textContent = goalValue.toFixed(0);
+            if (percentageElement) percentageElement.textContent = percentage.toFixed(1) + '%';
+
+            const statusElement = document.getElementById(`${nutrientId}-status`);
+            if (statusElement) {
+                if (percentage >= 100) {
+                    statusElement.textContent = '恭喜！目标已完成！';
+                    statusElement.style.backgroundColor = '#e8f5e9';
+                    statusElement.style.color = '#2e7d32';
+                } else if (percentage >= 80) {
+                    statusElement.textContent = `已完成 ${percentage.toFixed(1)}%，接近目标！`;
+                    statusElement.style.backgroundColor = '#fff3e0';
+                    statusElement.style.color = '#ef6c00';
+                } else if (percentage >= 50) {
+                    statusElement.textContent = `已完成 ${percentage.toFixed(1)}%，继续努力！`;
+                    statusElement.style.backgroundColor = '#e3f2fd';
+                    statusElement.style.color = '#1565c0';
+                } else {
+                    statusElement.textContent = `已完成 ${percentage.toFixed(1)}%`;
+                    statusElement.style.backgroundColor = '#f5f5f5';
+                    statusElement.style.color = '#666';
+                }
+            }
+        }
+
+        function animateNutrientProgress(nutrientId) {
+            const progressFill = document.getElementById(`${nutrientId}-progress`);
+            if (!progressFill) return;
+
+            progressFill.style.setProperty('--progress', '0%');
+
+            requestAnimationFrame(() => {
+                const displayElement = document.getElementById(`${nutrientId}-display`);
+                const goalElement = document.getElementById(`${nutrientId}-goal`);
+
+                if (displayElement && goalElement) {
+                    const currentValue = parseFloat(displayElement.textContent) || 0;
+                    const goalValue = parseFloat(goalElement.textContent) || 1;
+                    let targetProgress = (currentValue / goalValue) * 100;
+                    targetProgress = Math.min(targetProgress, 100);
+                    progressFill.style.setProperty('--progress', `${targetProgress}%`);
+                }
+            });
+        }
+
+        function initHexagonChart(nutrition, targets) {
+            if (!nutrition || !targets) return;
+
+            const nutritionData = {
+                calories: Math.min((nutrition.calories / targets.calories) * 100, 100),
+                protein: Math.min((nutrition.protein / targets.protein) * 100, 100),
+                fat: Math.min((nutrition.fat / targets.fat) * 100, 100),
+                carbs: Math.min((nutrition.carbs / targets.carbs) * 100, 100),
+                fiber: Math.min((nutrition.fiber / targets.fiber) * 100, 100),
+                sodium: Math.min((nutrition.sodium / targets.sodium) * 100, 100)
+            };
+
+            const legendIds = ['calories', 'protein', 'fat', 'carbs', 'fiber', 'sodium'];
+            legendIds.forEach(id => {
+                const legendElement = document.getElementById(`legend-${id}`);
+                if (legendElement) {
+                    legendElement.textContent = nutritionData[id].toFixed(1) + '%';
+                }
+            });
+
+            drawHexagonChart(nutritionData);
+        }
+
+        function drawHexagonChart(data) {
+            const svg = document.getElementById('hexagonChart');
+            if (!svg) return;
+
+            const centerX = 140;
+            const centerY = 140;
+            const radius = 100;
+            const sides = 6;
+            const angleStep = (Math.PI * 2) / sides;
+
+            const hexagonGrid = document.getElementById('hexagonGrid');
+            const dataArea = document.getElementById('dataArea');
+            const labels = document.getElementById('labels');
+
+            if (hexagonGrid) hexagonGrid.innerHTML = '';
+            if (dataArea) dataArea.innerHTML = '';
+            if (labels) labels.innerHTML = '';
+
+            // 绘制六边形网格
+            drawHexagonGrid(centerX, centerY, radius, sides, angleStep);
+
+            // 绘制数据区域
+            drawDataArea(centerX, centerY, radius, sides, angleStep, data);
+
+            // 绘制标签
+            drawLabels(centerX, centerY, radius, sides, angleStep);
+        }
+
+        function drawHexagonGrid(centerX, centerY, radius, sides, angleStep) {
+            const hexagonGrid = document.getElementById('hexagonGrid');
+            if (!hexagonGrid) return;
+
+            const gridLevels = 5;
+            for (let i = 1; i <= gridLevels; i++) {
+                const currentRadius = (radius / gridLevels) * i;
+
+                let pathData = '';
+                for (let j = 0; j < sides; j++) {
+                    const angle = j * angleStep - Math.PI / 2;
+                    const x = centerX + currentRadius * Math.cos(angle);
+                    const y = centerY + currentRadius * Math.sin(angle);
+
+                    if (j === 0) {
+                        pathData = `M ${x} ${y}`;
+                    } else {
+                        pathData += ` L ${x} ${y}`;
+                    }
+                }
+                pathData += ' Z';
+
+                const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                polygon.setAttribute('d', pathData);
+                polygon.setAttribute('fill', 'none');
+                polygon.setAttribute('stroke', '#e0e0e0');
+                polygon.setAttribute('stroke-width', '1');
+                hexagonGrid.appendChild(polygon);
+            }
+
+            for (let i = 0; i < sides; i++) {
+                const angle = i * angleStep - Math.PI / 2;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', centerX);
+                line.setAttribute('y1', centerY);
+                line.setAttribute('x2', x);
+                line.setAttribute('y2', y);
+                line.setAttribute('stroke', '#e0e0e0');
+                line.setAttribute('stroke-width', '1');
+                hexagonGrid.appendChild(line);
+            }
+        }
+
+        function drawDataArea(centerX, centerY, radius, sides, angleStep, data) {
+            const dataArea = document.getElementById('dataArea');
+            if (!dataArea) return;
+
+            const dataKeys = ['calories', 'protein', 'fat', 'carbs', 'fiber', 'sodium'];
+            const colors = ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#00BCD4', '#E91E63'];
+
+            let pathData = '';
+            for (let i = 0; i < sides; i++) {
+                const dataKey = dataKeys[i];
+                const dataValue = data[dataKey] / 100;
+                const currentRadius = radius * dataValue;
+                const angle = i * angleStep - Math.PI / 2;
+                const x = centerX + currentRadius * Math.cos(angle);
+                const y = centerY + currentRadius * Math.sin(angle);
+
+                if (i === 0) {
+                    pathData = `M ${x} ${y}`;
+                } else {
+                    pathData += ` L ${x} ${y}`;
+                }
+            }
+            pathData += ' Z';
+
+            const dataPolygon = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            dataPolygon.setAttribute('d', pathData);
+            dataPolygon.setAttribute('fill', 'rgba(76, 175, 80, 0.2)');
+            dataPolygon.setAttribute('stroke', '#4CAF50');
+            dataPolygon.setAttribute('stroke-width', '2');
+            dataArea.appendChild(dataPolygon);
+
+            for (let i = 0; i < sides; i++) {
+                const dataKey = dataKeys[i];
+                const dataValue = data[dataKey] / 100;
+                const currentRadius = radius * dataValue;
+                const angle = i * angleStep - Math.PI / 2;
+                const x = centerX + currentRadius * Math.cos(angle);
+                const y = centerY + currentRadius * Math.sin(angle);
+
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', '4');
+                circle.setAttribute('fill', colors[i]);
+                circle.setAttribute('stroke', '#fff');
+                circle.setAttribute('stroke-width', '1.5');
+                dataArea.appendChild(circle);
+            }
+        }
+
+        function drawLabels(centerX, centerY, radius, sides, angleStep) {
+            const labels = document.getElementById('labels');
+            if (!labels) return;
+
+            const labelTexts = ['卡路里', '蛋白质', '脂肪', '碳水', '纤维', '钠'];
+            const labelRadius = radius * 1.15;
+
+            for (let i = 0; i < sides; i++) {
+                const angle = i * angleStep - Math.PI / 2;
+                const x = centerX + labelRadius * Math.cos(angle);
+                const y = centerY + labelRadius * Math.sin(angle);
+
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', x);
+                text.setAttribute('y', y);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('dominant-baseline', 'middle');
+                text.setAttribute('font-size', '12');
+                text.setAttribute('font-weight', 'bold');
+                text.setAttribute('fill', '#333');
+                text.textContent = labelTexts[i];
+                labels.appendChild(text);
+            }
+        }
+
+        function showAllSections() {
+            document.getElementById('recommended-section').style.display = 'block';
+            document.getElementById('special-attention-section').style.display = 'block';
+            document.getElementById('meal-plan-section').style.display = 'block';
+            document.getElementById('nutrition-section').style.display = 'block';
+        }
+
+        function regenerateRecommendation() {
+            localStorage.removeItem('recommendationData');
+            window.location.href = '/questionnaire';
+        }
+
+        // ===== 进入健康旅程 =====
+        function goToGame() {
+            window.location.href = '/game';
+        }
+
+        window.onbeforeprint = function () {
+            document.body.classList.add('printing');
+        };
+
+        window.onafterprint = function () {
+            document.body.classList.remove('printing');
+        };
+    </script>
+</body>
+</html>

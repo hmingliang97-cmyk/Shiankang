@@ -1,0 +1,19 @@
+{
+  "username": "docic077",
+  "password": "docic077",
+  "email": "1975512244@qq.com",
+  "createdAt": "2026-03-30 16:17:19.298057",
+  "hasCompletedQuestionnaire": true,
+  "gameProgress": {
+    "gold": 100,
+    "healthPoints": 10,
+    "atk": 15,
+    "def": 10,
+    "hp": 100,
+    "maxHp": 100,
+    "exp": 0,
+    "expToNext": 100,
+    "level": 1,
+    "dailyPurchased": 0
+  }
+}

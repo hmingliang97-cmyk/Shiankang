@@ -1,0 +1,36 @@
+{
+  "username": "demo11",
+  "password": "demo11",
+  "email": "1975512244@qq.com",
+  "createdAt": "2026-03-31 09:40:03.146335",
+  "hasCompletedQuestionnaire": true,
+  "gameProgress": {
+    "gold": 200,
+    "healthPoints": 10,
+    "atk": 15,
+    "def": 10,
+    "hp": 100,
+    "maxHp": 100,
+    "exp": 45,
+    "expToNext": 100,
+    "level": 1,
+    "dailyPurchased": 0,
+    "tasks": [
+      {
+        "id": 1,
+        "progress": 2,
+        "completed": true
+      },
+      {
+        "id": 2,
+        "progress": 1,
+        "completed": true
+      },
+      {
+        "id": 3,
+        "progress": 1,
+        "completed": true
+      }
+    ]
+  }
+}

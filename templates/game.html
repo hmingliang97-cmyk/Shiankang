@@ -1,0 +1,3491 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>健康冒险者物语 - 完整版</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== 原游戏界面全部样式（完整保留） ===== */
+        :root {
+            --sky-blue: #87CEEB;
+            --deep-blue: #4169E1;
+            --sunset-orange: #FF7F50;
+            --cherry-pink: #FFB6C1;
+            --mint-green: #98FB98;
+            --soft-yellow: #FFD700;
+            --light-purple: #DDA0DD;
+            --gradient-bg: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            --gradient-ui: linear-gradient(135deg, rgba(135, 206, 235, 0.9), rgba(65, 105, 225, 0.9));
+            --gradient-card: linear-gradient(135deg, rgba(255, 182, 193, 0.9), rgba(255, 215, 0, 0.9));
+            --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'Segoe UI', 'Arial Rounded MT Bold', sans-serif;
+        }
+
+        body {
+            background: var(--gradient-bg);
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+
+            .cloud:nth-child(1) {
+                width: 200px;
+                height: 80px;
+                top: 10%;
+                left: 10%;
+                animation: float 20s infinite linear;
+            }
+
+            .cloud:nth-child(2) {
+                width: 150px;
+                height: 60px;
+                top: 30%;
+                right: 15%;
+                animation: float 25s infinite linear reverse;
+            }
+
+            .cloud:nth-child(3) {
+                width: 180px;
+                height: 70px;
+                bottom: 20%;
+                left: 20%;
+                animation: float 22s infinite linear;
+            }
+
+        @keyframes float {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+
+            50% {
+                transform: translateX(50px) translateY(-20px);
+            }
+
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+        }
+
+        .game-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 30px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-sidebar {
+            width: 280px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 30px 20px;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .nav-sidebar::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: conic-gradient(transparent, rgba(255, 215, 0, 0.3), transparent 30%);
+                animation: rotate 10s linear infinite;
+                z-index: -1;
+            }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .nav-logo {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.5);
+        }
+
+            .nav-logo h2 {
+                font-size: 28px;
+                background: linear-gradient(45deg, #FFD700, #FF7F50);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+                margin-bottom: 5px;
+                letter-spacing: 2px;
+            }
+
+            .nav-logo p {
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.7);
+                font-style: italic;
+            }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .nav-item::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                transition: left 0.5s;
+            }
+
+            .nav-item:hover::before {
+                left: 100%;
+            }
+
+            .nav-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 215, 0, 0.5);
+                transform: translateX(10px) scale(1.05);
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            }
+
+            .nav-item.active {
+                background: var(--gradient-ui);
+                border-color: #FFD700;
+                transform: translateX(10px);
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            }
+
+            .nav-item i {
+                font-size: 22px;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                transition: all 0.3s;
+            }
+
+            .nav-item:hover i {
+                transform: rotate(15deg) scale(1.2);
+                background: rgba(255, 215, 0, 0.2);
+            }
+
+        .nav-text {
+            flex: 1;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: var(--text-shadow);
+        }
+
+        .nav-badge {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .status-bar {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .status-bar::after {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(45deg, #FF7F50, #FFD700, #FFB6C1, #98FB98);
+                border-radius: 25px;
+                z-index: -1;
+                animation: borderGlow 4s linear infinite;
+            }
+
+        @keyframes borderGlow {
+            0%,100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FFB6C1, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+            .location i {
+                font-size: 28px;
+                color: #FFD700;
+                animation: pulse 2s infinite;
+            }
+
+        @keyframes pulse {
+            0%,100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .resource-display {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+            .resource-item:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+            }
+
+        .gold-display i {
+            color: #FFD700;
+        }
+
+        .health-display i {
+            color: #FF69B4;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: auto;
+        }
+
+            .user-area span {
+                font-size: 16px;
+                color: #FFD700;
+            }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+            .logout-btn:hover {
+                background: rgba(255, 215, 0, 0.2);
+                transform: translateY(-2px);
+            }
+
+        /* ===== 资源说明面板 ===== */
+        .resource-guide {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .guide-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+            .guide-title i {
+                font-size: 20px;
+            }
+
+        .guide-items {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .guide-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+            .guide-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateY(-3px);
+            }
+
+        .guide-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .gold-icon {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .health-icon {
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+        }
+
+        .exp-icon {
+            background: linear-gradient(135deg, #87CEEB, #00BFFF);
+            box-shadow: 0 0 15px rgba(135, 206, 235, 0.5);
+        }
+
+        .level-icon {
+            background: linear-gradient(135deg, #98FB98, #32CD32);
+            box-shadow: 0 0 15px rgba(152, 251, 152, 0.5);
+        }
+
+        .guide-content {
+            flex: 1;
+        }
+
+        .guide-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .guide-desc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+
+        .guide-source {
+            font-size: 10px;
+            color: #FFD700;
+        }
+
+        .character-card {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px;
+            border: 3px solid rgba(255, 182, 193, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(255, 182, 193, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .character-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 5px;
+                background: linear-gradient(90deg, transparent, #FFB6C1, #FFD700, #FF7F50, transparent);
+                animation: shine 3s linear infinite;
+            }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .character-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .character-main-title {
+            font-size: 36px;
+            background: linear-gradient(45deg, #FFB6C1, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .character-main-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+        }
+
+        .character-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .character-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .character-ninja-display {
+            position: relative;
+            width: 280px;
+            height: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ninja-avatar {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 50%;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.5);
+            z-index: 3;
+            border: 3px solid #f0f0f0;
+        }
+
+        .ninja-headband {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 22px;
+            background: linear-gradient(90deg, #E63946, #457B9D);
+            border-radius: 12px;
+            z-index: 4;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+            .ninja-headband::after {
+                content: '✦';
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 16px;
+                color: #FFD700;
+                font-weight: bold;
+                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            }
+
+        .ninja-eyemask {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 16px;
+            background: linear-gradient(90deg, #2C3E50, #34495E);
+            border-radius: 10px;
+            z-index: 4;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+            .ninja-eyemask::before, .ninja-eyemask::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 10px;
+                height: 10px;
+                background: #FFFFFF;
+                border-radius: 50%;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            }
+
+            .ninja-eyemask::before {
+                left: 15px;
+            }
+
+            .ninja-eyemask::after {
+                right: 15px;
+            }
+
+        .ninja-body {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-top: 120px solid #1a2f4e;
+            z-index: 2;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+            position: relative;
+        }
+
+            .ninja-body::after {
+                content: '';
+                position: absolute;
+                top: -60px;
+                left: -30px;
+                width: 60px;
+                height: 15px;
+                background: linear-gradient(90deg, #8B4513, #A0522D);
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            }
+
+        .ninja-sword {
+            position: absolute;
+            right: 0px;
+            top: 123px;
+            width: 100px;
+            height: 200px;
+            z-index: 15;
+            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.5));
+            transform: rotate(-15deg);
+            transform-origin: top left;
+        }
+
+            .ninja-sword .handle {
+                position: absolute;
+                top: 60px;
+                left: 95px;
+                width: 60px;
+                height: 11px;
+                background: linear-gradient(90deg, #8B0000, #5A0000, #8B0000);
+                border-radius: 2px;
+                z-index: 16;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            }
+
+            .ninja-sword .tsuba {
+                position: absolute;
+                top: 58px;
+                left: 152px;
+                width: 13px;
+                height: 18px;
+                background: linear-gradient(135deg, #708090, #4A5568, #708090);
+                border-radius: 3px;
+                z-index: 18;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+            }
+
+            .ninja-sword .blade {
+                position: absolute;
+                top: 60px;
+                left: 160px;
+                width: 140px;
+                height: 10px;
+                background: linear-gradient(90deg, #B0C4DE, #E8F4FD, #B0C4DE);
+                transform: skewY(-2deg);
+                transform-origin: left center;
+                z-index: 14;
+                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                border-radius: 1px 40% 40% 1px;
+            }
+
+                .ninja-sword .blade .metal-texture {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255, 255, 255, 0.1) 5px, rgba(255, 255, 255, 0.1) 10px);
+                    pointer-events: none;
+                }
+
+        .ninja-arm-left {
+            position: absolute;
+            top: 95px;
+            left: -30px;
+            width: 20px;
+            height: 60px;
+            background: linear-gradient(180deg, #1e3658, #162b48);
+            border-radius: 10px 10px 8px 8px;
+            transform: rotate(-15deg);
+            z-index: 1;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+            .ninja-arm-left::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: -2px;
+                width: 26px;
+                height: 15px;
+                background: linear-gradient(180deg, #8B4513, #654321);
+                border-radius: 5px 5px 8px 8px;
+            }
+
+        .ninja-arm-right {
+            position: absolute;
+            top: 95px;
+            right: -32px;
+            width: 22px;
+            height: 65px;
+            background: linear-gradient(180deg, #1e3658, #162b48);
+            border-radius: 15px 15px 10px 10px;
+            transform: rotate(5deg);
+            z-index: 8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+            .ninja-arm-right::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                right: -2px;
+                width: 30px;
+                height: 25px;
+                background: linear-gradient(135deg, #8B4513, #654321);
+                border-radius: 15px 15px 20px 20px;
+                z-index: 9;
+                box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.4);
+                transform: rotate(0deg);
+            }
+
+        .character-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .character-name {
+            font-size: 32px;
+            background: linear-gradient(45deg, #FFD700, #FF7F50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .character-title {
+            font-size: 24px;
+            color: #87CEEB;
+            font-weight: bold;
+        }
+
+        .character-description {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+        }
+
+        .character-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .character-purchase-section {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .purchase-health-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+            .purchase-health-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+                background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+            }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .stat-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: var(--gradient-card);
+                opacity: 0;
+                transition: opacity 0.3s;
+                z-index: -1;
+            }
+
+            .stat-card:hover::before {
+                opacity: 0.3;
+            }
+
+            .stat-card:hover {
+                transform: translateY(-10px) scale(1.02);
+                border-color: rgba(255, 255, 255, 0.2);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 182, 193, 0.2);
+            }
+
+            .stat-card .mini-purchase-btn {
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: all 0.3s ease;
+                z-index: 2;
+            }
+
+            .stat-card:hover .mini-purchase-btn {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+
+            .stat-card .mini-purchase-btn:hover {
+                background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+                transform: scale(1.2);
+                box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+            }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .atk .stat-icon {
+            background: linear-gradient(135deg, rgba(255, 99, 71, 0.9), rgba(255, 69, 0, 0.9));
+        }
+
+        .def .stat-icon {
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.9), rgba(0, 191, 255, 0.9));
+        }
+
+        .hp .stat-icon {
+            background: linear-gradient(135deg, rgba(50, 205, 50, 0.9), rgba(0, 255, 127, 0.9));
+        }
+
+        .stat-details {
+            flex: 1;
+        }
+
+        .stat-name {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-shadow: var(--text-shadow);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, white, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-bar-container {
+            background: rgba(255, 255, 255, 0.1);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .stat-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .atk .stat-fill {
+            background: linear-gradient(90deg, #FF4500, #FF6347);
+        }
+
+        .def .stat-fill {
+            background: linear-gradient(90deg, #1E90FF, #00BFFF);
+        }
+
+        .hp .stat-fill {
+            background: linear-gradient(90deg, #32CD32, #00FF7F);
+        }
+
+        .upgrade-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 165, 0, 0.9));
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .upgrade-btn::before {
+                content: '+';
+                position: absolute;
+                font-size: 32px;
+                font-weight: bold;
+            }
+
+            .upgrade-btn:hover {
+                transform: rotate(180deg) scale(1.1);
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.3);
+                background: linear-gradient(135deg, rgba(255, 165, 0, 0.9), rgba(255, 215, 0, 0.9));
+            }
+
+        .upgrade-cost-display {
+            font-size: 14px;
+            color: #FFD700;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .cost-value {
+            color: #FF4500;
+            font-size: 16px;
+        }
+
+        .tasks-section {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px;
+            border: 3px solid rgba(255, 182, 193, 0.3);
+            box-shadow: var(--box-shadow);
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(45deg, #FFB6C1, #98FB98);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
+        }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .task-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .task-item:hover {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 182, 193, 0.3);
+                transform: translateX(10px);
+            }
+
+        .task-checkbox {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+            .task-checkbox.completed {
+                background: linear-gradient(135deg, #32CD32, #00FF7F);
+                border-color: #32CD32;
+                box-shadow: 0 0 15px rgba(50, 205, 50, 0.5);
+            }
+
+                .task-checkbox.completed::after {
+                    content: '✓';
+                    color: white;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .task-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+
+        .task-progress {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B6B, #FF8E53, #FFD700);
+            border-radius: 4px;
+            transition: width 0.8s;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .progress-fill::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                animation: progressShine 2s infinite;
+            }
+
+        @keyframes progressShine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .task-reward {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .reward-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reward-gold i {
+            color: #FFD700;
+        }
+
+        .reward-exp i {
+            color: #87CEEB;
+        }
+
+        .purchase-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .purchase-content {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 42, 108, 0.9));
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .purchase-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .purchase-option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+            .purchase-option.selected {
+                border-color: #FFD700;
+                background: rgba(255, 215, 0, 0.1);
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            }
+
+        .purchase-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .purchase-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .purchase-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .purchase-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .purchase-confirm {
+            background: linear-gradient(45deg, #FF7F50, #FFD700);
+            color: white;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .ninja-loader {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+
+            .ninja-loader::before, .ninja-loader::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                border: 8px solid transparent;
+                border-top-color: #FF7F50;
+                animation: spin 1.5s linear infinite;
+            }
+
+            .ninja-loader::after {
+                border-top-color: #4169E1;
+                animation: spin 2s linear infinite reverse;
+            }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            margin-top: 30px;
+            font-size: 24px;
+            background: linear-gradient(45deg, #FF7F50, #FFD700, #87CEEB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulseText 2s infinite;
+        }
+
+        @keyframes pulseText {
+            0%,100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== 节点地图和战斗模块样式（完整保留） ========== */
+        .map-modal, .battle-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .map-container, .battle-container {
+            position: relative;
+            width: 95%;
+            max-width: 1200px;
+            height: 80vh;
+            background: #0a0a16;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 200, 50, 0.4);
+        }
+
+        .map-close, .battle-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10001;
+            color: white;
+            font-size: 24px;
+            border: 1px solid #ffd700;
+            transition: all 0.3s;
+        }
+
+            .map-close:hover, .battle-close:hover {
+                background: #ff4500;
+                transform: scale(1.1);
+            }
+
+        #levelMapCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .node-tooltip {
+            position: absolute;
+            background: rgba(20, 20, 35, 0.95);
+            border: 1px solid #ff8c00;
+            border-radius: 10px;
+            padding: 12px;
+            max-width: 260px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .tooltip-title {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .tooltip-desc {
+            color: #b0b0d0;
+            font-size: 0.9rem;
+        }
+
+        /* 战斗页面内部样式 - 人物缩小到3/4并向下平移 */
+        .battle-container {
+            background: radial-gradient(ellipse at 30% 40%, #2a3042, #151a28);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .arena-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,180,40,0.1) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(200,50,50,0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: arenaBreath 6s infinite alternate;
+        }
+
+        @keyframes arenaBreath {
+            0% {
+                opacity: 0.3
+            }
+
+            100% {
+                opacity: 0.7
+            }
+        }
+
+        .platform {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(180deg,#2a2f3f 0%,#1a1f2f 100%);
+            border-top: 4px solid rgba(255,200,50,0.6);
+            z-index: 0;
+        }
+
+        /* 战斗容器内部布局 - 留出足够底部空间 */
+        .battle-container-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 150px 80px;
+            z-index: 10;
+        }
+
+        /* 光效位置随人物下移 */
+        .ninja-stand, .monster-stand {
+            position: absolute;
+            bottom: 60px;
+            width: 220px;
+            height: 120px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.4) 0%, transparent 70%);
+            filter: blur(8px);
+            opacity: 0.7;
+            animation: standGlow 2s infinite;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .ninja-stand {
+            left: 190px;
+            transform: translateX(-50%);
+        }
+
+        .monster-stand {
+            right: 190px;
+            transform: translateX(50%);
+            background: radial-gradient(ellipse at 50% 0%, rgba(200,50,50,0.4) 0%, transparent 70%);
+        }
+
+        @keyframes standGlow {
+            0%,100% {
+                opacity: 0.5
+            }
+
+            50% {
+                opacity: 0.8
+            }
+        }
+
+        /* 忍者容器 - 基础样式（移除单独transform，动画中统一处理） */
+        .ninja-container-battle {
+            position: relative;
+            width: 200px;
+            height: 267px;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+            transform-origin: bottom center;
+            transition: all 0.2s;
+            margin-bottom: 20px;
+        }
+
+        /* 怪兽容器 */
+        .monster-container-battle {
+            position: relative;
+            width: 267px;
+            height: 300px;
+            filter: drop-shadow(0 20px 40px rgba(139,0,0,0.6));
+            transform-origin: bottom center;
+            transition: all 0.2s;
+            margin-bottom: 20px;
+        }
+
+        /* 忍者空闲动画 - 缩小到3/4并向下平移40px */
+        @keyframes ninjaIdle {
+            0%,100% {
+                transform: translateY(40px) scale(0.75);
+            }
+
+            50% {
+                transform: translateY(35px) scale(0.75);
+            }
+        }
+
+        /* 怪兽空闲动画 - 缩小到3/4并向下平移40px */
+        @keyframes monsterIdle {
+            0%,100% {
+                transform: translateY(40px) scale(0.75);
+            }
+
+            50% {
+                transform: translateY(32px) scale(0.77);
+            }
+        }
+
+        /* 应用空闲动画 */
+        .ninja-container-battle {
+            animation: ninjaIdle 2.5s infinite;
+        }
+
+        .monster-container-battle {
+            animation: monsterIdle 3s infinite;
+        }
+
+        /* 攻击动画 - 在基础偏移上增加攻击动作 */
+        @keyframes ninjaAttack {
+            0% {
+                transform: translateY(40px) scale(0.75);
+            }
+
+            40% {
+                transform: translateX(60px) translateY(40px) scale(0.85);
+            }
+
+            100% {
+                transform: translateY(40px) scale(0.75);
+            }
+        }
+
+        .ninja-container-battle.attacking {
+            animation: ninjaAttack 0.2s cubic-bezier(0.34,1.56,0.64,1);
+            filter: drop-shadow(0 0 30px #FFD700);
+        }
+
+        @keyframes monsterHit {
+            0% {
+                transform: translateY(40px) scale(0.75);
+            }
+
+            20% {
+                transform: translateX(-20px) translateY(42px) scale(0.7);
+            }
+
+            100% {
+                transform: translateY(40px) scale(0.75);
+            }
+        }
+
+        .monster-container-battle.hit {
+            animation: monsterHit 0.2s ease-out;
+            filter: drop-shadow(0 0 30px #FF0000);
+        }
+
+        .ninja-container-battle.defeated, .monster-container-battle.defeated {
+            animation: defeatAnim 0.8s ease-in forwards;
+            pointer-events: none;
+        }
+
+        @keyframes defeatAnim {
+            0% {
+                transform: translateY(40px) scale(0.75) rotate(0deg);
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(120px) scale(0.3) rotate(-90deg);
+                opacity: 0
+            }
+        }
+
+        /* 属性面板位置向上移动（减小bottom值） */
+        .stats-container-battle {
+            position: absolute;
+            bottom: 70px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 300px;
+            z-index: 30;
+            pointer-events: none;
+        }
+
+        .character-stats-battle {
+            background: rgba(10,15,25,0.85);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,215,0,0.6);
+            border-radius: 20px;
+            padding: 12px 25px;
+            color: white;
+            text-align: center;
+            min-width: 180px;
+            pointer-events: auto;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 16px;
+        }
+
+        .stats-label {
+            color: #aaa;
+        }
+
+        .stats-value {
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .monster-stats .stats-value {
+            color: #FF6347;
+        }
+
+        .health-bar-mini {
+            width: 100%;
+            height: 6px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 3px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .health-fill-mini {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.2s;
+        }
+
+        .monster-stats .health-fill-mini {
+            background: linear-gradient(90deg, #FF4444, #FF8C00);
+        }
+
+        .battle-info-area {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            z-index: 100;
+            text-align: center;
+        }
+
+        .battle-log {
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid #FFD700;
+            border-radius: 40px;
+            padding: 15px 30px;
+            color: #FFD700;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .button-group-battle {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 50;
+        }
+
+        .action-btn-battle {
+            padding: 12px 35px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #FF4500, #FF8C00);
+            border: 2px solid #FFD700;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 180px;
+        }
+
+            .action-btn-battle.reset-btn {
+                background: linear-gradient(135deg, #4A5568, #2D3748);
+            }
+
+            .action-btn-battle:active {
+                transform: scale(0.98);
+            }
+
+            .action-btn-battle.disabled {
+                opacity: 0.6;
+                pointer-events: none;
+            }
+
+        .damage-number {
+            position: absolute;
+            font-size: 28px;
+            font-weight: 900;
+            pointer-events: none;
+            z-index: 300;
+            animation: damageFloat 0.4s ease-out forwards;
+            text-shadow: 0 0 20px currentColor;
+            white-space: nowrap;
+        }
+
+            .damage-number.ninja-damage {
+                color: #FFD700;
+            }
+
+            .damage-number.monster-damage {
+                color: #FF4444;
+            }
+
+        @keyframes damageFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(-40px) scale(1.4);
+                opacity: 0
+            }
+        }
+
+        .slash-effect {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,215,0,0.7) 40%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%,-50%);
+            filter: blur(3px);
+            mix-blend-mode: screen;
+            animation: slashExpand 0.15s forwards;
+        }
+
+        @keyframes slashExpand {
+            0% {
+                transform: translate(-50%,-50%) scale(0.2);
+                opacity: 1
+            }
+
+            100% {
+                transform: translate(-50%,-50%) scale(2.5);
+                opacity: 0
+            }
+        }
+
+        .blood-drop {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #8B0000;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: bloodFall 0.3s forwards;
+        }
+
+        @keyframes bloodFall {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(30px) scale(0.3);
+                opacity: 0
+            }
+        }
+
+        .defeat-smoke {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(100,100,100,0.8) 0%, rgba(50,50,50,0.4) 50%, transparent 80%);
+            border-radius: 50%;
+            filter: blur(15px);
+            animation: smokeRise 1s forwards;
+            pointer-events: none;
+        }
+
+        @keyframes smokeRise {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0.8
+            }
+
+            100% {
+                transform: translateY(-50px) scale(2);
+                opacity: 0
+            }
+        }
+
+        .turn-indicator {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .turn-dot {
+            width: 8px;
+            height: 8px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: dotPulse 1s infinite;
+        }
+
+        @keyframes dotPulse {
+            0%,100% {
+                opacity: 0.3;
+                transform: scale(0.8)
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2)
+            }
+        }
+
+        /* ========== 移动端适配（不改变美术效果） ========== */
+        @media (max-width: 768px) {
+            .game-container {
+                flex-direction: column;
+                padding: 12px;
+                gap: 15px;
+            }
+
+            .nav-sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 12px 16px;
+                gap: 12px;
+                border-radius: 20px 20px 0 0;
+                z-index: 1000;
+                background: rgba(0, 0, 0, 0.85);
+                backdrop-filter: blur(15px);
+            }
+
+                .nav-sidebar::-webkit-scrollbar {
+                    height: 2px;
+                }
+
+            .nav-item {
+                flex: 0 0 auto;
+                min-width: auto;
+                padding: 10px 16px;
+            }
+
+            .nav-text {
+                font-size: 14px;
+            }
+
+            .nav-logo {
+                display: none;
+            }
+
+            .main-content {
+                margin-bottom: 80px;
+            }
+
+            .status-bar {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 15px 20px;
+            }
+
+            .location {
+                justify-content: center;
+                font-size: 16px;
+            }
+
+            .resource-display {
+                justify-content: center;
+            }
+
+            .user-area {
+                margin-left: 0;
+                justify-content: center;
+            }
+
+            .guide-items {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .guide-item {
+                padding: 10px;
+            }
+
+            .guide-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .guide-name {
+                font-size: 14px;
+            }
+
+            .guide-desc {
+                font-size: 10px;
+            }
+
+            .character-details {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .character-ninja-display {
+                transform: scale(0.9);
+                margin: 0 auto;
+            }
+
+            .character-name {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .character-title {
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .character-description {
+                font-size: 14px;
+                text-align: center;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+
+            .stat-name {
+                font-size: 18px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+
+            .upgrade-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .task-item {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .task-checkbox {
+                align-self: flex-start;
+            }
+
+            .task-reward {
+                justify-content: space-around;
+            }
+
+            .purchase-options {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .purchase-option {
+                padding: 12px;
+            }
+
+            /* 战斗界面专门优化 */
+            .battle-container {
+                width: 98%;
+                height: 85vh;
+            }
+
+            .battle-container-inner {
+                padding: 0 20px 60px;
+            }
+
+            .ninja-container-battle, .monster-container-battle {
+                transform: scale(0.7);
+                margin-bottom: 0;
+            }
+
+            .ninja-stand, .monster-stand {
+                width: 150px;
+                height: 80px;
+                bottom: 40px;
+            }
+
+            .ninja-stand {
+                left: 120px;
+            }
+
+            .monster-stand {
+                right: 120px;
+            }
+
+            .stats-container-battle {
+                bottom: 100px;
+                gap: 30px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .character-stats-battle {
+                padding: 8px 15px;
+                min-width: 140px;
+            }
+
+            .stats-row {
+                font-size: 12px;
+                gap: 10px;
+            }
+
+            .battle-info-area {
+                width: 90%;
+                top: 20px;
+            }
+
+            .battle-log {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .button-group-battle {
+                bottom: 20px;
+                gap: 15px;
+            }
+
+            .action-btn-battle {
+                padding: 10px 20px;
+                font-size: 16px;
+                min-width: 130px;
+            }
+
+            .damage-number {
+                font-size: 20px;
+            }
+        }
+
+        /* ===== 新增套餐调整模态框样式 ===== */
+        .meal-adjust-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 20000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .meal-adjust-container {
+            width: 95%;
+            max-width: 800px;
+            height: 85vh;
+            background: linear-gradient(135deg, #1a2a6c, #2a1a4c);
+            border-radius: 30px;
+            overflow-y: auto;
+            padding: 20px;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            color: white;
+        }
+
+        .meal-adjust-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,215,0,0.5);
+        }
+
+        .close-meal-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .meal-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .meal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 15px;
+        }
+
+        .meal-name {
+            font-size: 16px;
+            font-weight: bold;
+            flex: 2;
+        }
+
+        .meal-amount-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .meal-amount-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            border: none;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .meal-amount {
+            min-width: 40px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .meal-nutrition {
+            margin-top: 20px;
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .nutrient-card {
+            background: rgba(0,0,0,0.6);
+            border-radius: 15px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .nutrient-name {
+            font-size: 14px;
+            color: #ffd700;
+        }
+
+        .nutrient-value {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .nutrient-goal {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .nutrient-progress {
+            height: 6px;
+            background: #444;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .nutrient-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .meal-status {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 15px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .meal-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .meal-amount-control {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-decoration">
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+    </div>
+
+    <div class="game-container">
+        <div class="nav-sidebar">
+            <div class="nav-logo">
+                <h2>健康冒险者物语</h2>
+                <p>Health Adventure Story</p>
+            </div>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-user-ninja"></i>
+                <span class="nav-text">个人档案</span>
+                <span class="nav-badge">Lv.<span id="navLevel">1</span></span>
+            </a>
+            <a href="#" class="nav-item" id="exploreNav">
+                <i class="fas fa-compass"></i>
+                <span class="nav-text">探索冒险</span>
+                <span class="nav-badge">新</span>
+            </a>
+            <a href="#" class="nav-item" id="tasksNav">
+                <i class="fas fa-tasks"></i>
+                <span class="nav-text">任务挑战</span>
+                <span class="nav-badge">3</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span class="nav-text">战斗报告</span>
+                <span class="nav-badge">分析</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-question-circle"></i>
+                <span class="nav-text">帮助指南</span>
+            </a>
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="text-align: center; color: rgba(255,255,255,0.6); font-size: 12px;">
+                    健康值：<span style="color: #98FB98;" id="healthStatus">100/100</span><br>
+                    今日步数：<span style="color: #87CEEB;">5,280</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="status-bar fade-in">
+                <div class="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>第1层第1关 · 健康之路</span>
+                </div>
+                <div class="resource-display">
+                    <div class="resource-item gold-display" id="goldDisplay">
+                        <i class="fas fa-coins"></i>
+                        <span id="goldAmount">1000</span>
+                    </div>
+                    <div class="resource-item health-display" id="healthDisplay">
+                        <i class="fas fa-heart"></i>
+                        <span id="healthPoints">10</span>
+                    </div>
+                </div>
+                <div class="user-area">
+                    <span><i class="fas fa-user"></i> <span id="currentUsername"></span></span>
+                    <button class="logout-btn" onclick="logout()">登出</button>
+                </div>
+            </div>
+
+            <!-- 资源说明面板 -->
+            <div class="resource-guide fade-in">
+                <div class="guide-title">
+                    <i class="fas fa-info-circle"></i>
+                    <span>📖 资源说明</span>
+                </div>
+                <div class="guide-items">
+                    <div class="guide-item">
+                        <div class="guide-icon gold-icon"><i class="fas fa-coins"></i></div>
+                        <div class="guide-content">
+                            <div class="guide-name">💰 金币</div>
+                            <div class="guide-desc">用于购买健康点，提升角色属性</div>
+                            <div class="guide-source">✨ 获取：完成任务、击败怪物</div>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <div class="guide-icon health-icon"><i class="fas fa-heartbeat"></i></div>
+                        <div class="guide-content">
+                            <div class="guide-name">💚 健康点</div>
+                            <div class="guide-desc">核心资源！用于升级攻击力、防御力和生命值上限</div>
+                            <div class="guide-source">💎 获取：金币购买、任务奖励、成就</div>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <div class="guide-icon exp-icon"><i class="fas fa-star"></i></div>
+                        <div class="guide-content">
+                            <div class="guide-name">✨ 经验值</div>
+                            <div class="guide-desc">累积经验可提升等级，每升一级获得属性加成</div>
+                            <div class="guide-source">📈 获取：完成任务、击败怪物</div>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <div class="guide-icon level-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="guide-content">
+                            <div class="guide-name">📊 等级</div>
+                            <div class="guide-desc">提升基础属性，解锁更强挑战</div>
+                            <div class="guide-source">🎁 升级奖励：攻击+5，防御+3，生命+20</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card fade-in">
+                <div class="character-header">
+                    <h1 class="character-main-title">忍者冒险者</h1>
+                    <div class="character-main-subtitle">影之刺客</div>
+                </div>
+                <div class="character-details">
+                    <div class="character-left">
+                        <div class="character-ninja-display">
+                            <div class="ninja-avatar">
+                                <div class="ninja-headband"></div>
+                                <div class="ninja-eyemask"></div>
+                                <div class="ninja-body"></div>
+                                <div class="ninja-arm-left"></div>
+                                <div class="ninja-arm-right"></div>
+                                <div class="ninja-sword">
+                                    <div class="handle"></div>
+                                    <div class="tsuba"></div>
+                                    <div class="blade"><div class="metal-texture"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="character-right">
+                        <h2 class="character-name">影之忍者</h2>
+                        <div class="character-title">暗影刺客</div>
+                        <div class="character-description">在暗夜中行动，一击必杀的忍者</div>
+                        <div class="character-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">等级</span>
+                                <span class="stat-value" id="playerLevel">Lv.1</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">经验值</span>
+                                <span class="stat-value" id="expValue">0/100</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">金币</span>
+                                <span class="stat-value" id="goldStat">1000</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">健康点</span>
+                                <span class="stat-value" id="healthStat">10</span>
+                            </div>
+                        </div>
+                        <div class="character-purchase-section">
+                            <button class="purchase-health-btn" onclick="showPurchasePanel()">
+                                <i class="fas fa-shopping-cart"></i> 购买健康点
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-card atk fade-in">
+                    <div class="stat-icon"><i class="fas fa-fist-raised"></i></div>
+                    <div class="stat-details">
+                        <div class="stat-name">攻击力 (ATK)</div>
+                        <div class="stat-value" id="atkValue">15</div>
+                        <div class="stat-bar-container"><div class="stat-fill" id="atkBar" style="width: 70%"></div></div>
+                        <div class="upgrade-cost-display">升级需要: <span class="cost-value" id="atkCost">5</span> 健康点</div>
+                    </div>
+                    <button class="upgrade-btn" onclick="upgradeStat('atk')"></button>
+                    <button class="mini-purchase-btn" onclick="showPurchasePanel()" title="购买健康点"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="stat-card def fade-in">
+                    <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="stat-details">
+                        <div class="stat-name">防御力 (DEF)</div>
+                        <div class="stat-value" id="defValue">10</div>
+                        <div class="stat-bar-container"><div class="stat-fill" id="defBar" style="width: 60%"></div></div>
+                        <div class="upgrade-cost-display">升级需要: <span class="cost-value" id="defCost">5</span> 健康点</div>
+                    </div>
+                    <button class="upgrade-btn" onclick="upgradeStat('def')"></button>
+                    <button class="mini-purchase-btn" onclick="showPurchasePanel()"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="stat-card hp fade-in">
+                    <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                    <div class="stat-details">
+                        <div class="stat-name">生命值 (HP)</div>
+                        <div class="stat-value" id="hpValue">100/100</div>
+                        <div class="stat-bar-container"><div class="stat-fill" id="hpBar" style="width: 100%"></div></div>
+                        <div class="upgrade-cost-display">升级需要: <span class="cost-value" id="hpCost">8</span> 健康点</div>
+                    </div>
+                    <button class="upgrade-btn" onclick="upgradeStat('hp')"></button>
+                    <button class="mini-purchase-btn" onclick="showPurchasePanel()"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div class="tasks-section fade-in" id="tasks-section">
+                <h3 class="section-title"><i class="fas fa-tasks"></i> 今日任务</h3>
+                <div class="task-list" id="taskList"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="purchase-panel" id="purchasePanel">
+        <div class="purchase-content">
+            <div class="purchase-header">
+                <h3><i class="fas fa-shopping-cart"></i> 购买健康点</h3>
+                <p>用金币购买健康点，增强你的属性！</p>
+            </div>
+            <div class="purchase-options" id="purchaseOptions"></div>
+            <div class="purchase-info">
+                <div class="purchase-summary">已选择: <span id="selectedAmount">0</span> 健康点 | 总计: <span id="totalCost">0</span> 金币</div>
+                <div class="purchase-daily">今日已购买: <span id="dailyPurchased">0</span>/20 健康点</div>
+            </div>
+            <div class="purchase-actions">
+                <button class="purchase-btn purchase-cancel" onclick="hidePurchasePanel()">取消</button>
+                <button class="purchase-btn purchase-confirm" onclick="confirmPurchase()">确认购买</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading" id="loading" style="display: none;">
+        <div class="ninja-loader"></div>
+        <div class="loading-text">忍法·加载中...</div>
+    </div>
+
+    <!-- 节点地图模态框 -->
+    <div id="nodeMapModal" class="map-modal">
+        <div class="map-container">
+            <div class="map-close" id="closeMapBtn">&times;</div>
+            <canvas id="levelMapCanvas" width="1200" height="500"></canvas>
+            <div id="nodeTooltip" class="node-tooltip"></div>
+        </div>
+    </div>
+
+    <!-- 战斗模态框 -->
+    <div id="battleModal" class="battle-modal">
+        <div class="battle-container">
+            <div class="battle-close" id="closeBattleBtn">&times;</div>
+            <div id="battleInner"></div>
+        </div>
+    </div>
+
+    <!-- 套餐调整模态框 -->
+    <div id="mealAdjustModal" class="meal-adjust-modal">
+        <div class="meal-adjust-container">
+            <div class="meal-adjust-header">
+                <h3><i class="fas fa-utensils"></i> 今日饮食管理</h3>
+                <button class="close-meal-btn" id="closeMealBtn">&times;</button>
+            </div>
+            <div class="meal-list" id="mealList">
+                <!-- 动态加载菜品列表 -->
+            </div>
+            <div class="meal-nutrition">
+                <h4>营养分析 <i class="fas fa-chart-line"></i></h4>
+                <div class="nutrition-grid" id="nutritionGrid"></div>
+                <div class="meal-status" id="mealStatus">
+                    当前达标情况：请调整份数使所有指标达到70%以上
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== 游戏逻辑（完整保留，增加后端同步） ==========
+        let currentUser = null;
+        let gameState = {
+            gold: 1000,
+            healthPoints: 10,
+            atk: 15,
+            def: 10,
+            hp: 100,
+            maxHp: 100,
+            exp: 0,
+            expToNext: 100,
+            level: 1,
+            dailyPurchased: 0
+        };
+        let selectedPurchaseAmount = 0;
+        let selectedPurchaseCost = 0;
+
+        // 任务数据 - 任务1仅需一次配餐完成
+        const tasks = [
+            { id: 1, name: "完成今日饮食管理", description: "记录并完成今日的饮食计划", progress: 0, maxProgress: 1, completed: false, reward: { gold: 50, exp: 20 } },
+            { id: 2, name: "运动40分钟", description: "坚持40分钟中等强度运动", progress: 0, maxProgress: 1, completed: false, reward: { gold: 30, exp: 15 } },
+            { id: 3, name: "喝水1.5L", description: "保证充足水分摄入", progress: 0, maxProgress: 1, completed: false, reward: { gold: 20, exp: 10 } }
+        ];
+
+        // ========== 后端同步函数 ==========
+        async function saveGameProgress() {
+            if (!currentUser) return;
+            try {
+                const response = await fetch('/api/save_progress', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: currentUser.username,
+                        progress: {
+                            gold: gameState.gold,
+                            healthPoints: gameState.healthPoints,
+                            atk: gameState.atk,
+                            def: gameState.def,
+                            hp: gameState.hp,
+                            maxHp: gameState.maxHp,
+                            exp: gameState.exp,
+                            expToNext: gameState.expToNext,
+                            level: gameState.level,
+                            dailyPurchased: gameState.dailyPurchased,
+                            tasks: tasks.map(t => ({ id: t.id, progress: t.progress, completed: t.completed }))
+                        }
+                    })
+                });
+                const data = await response.json();
+                if (!data.success) {
+                    console.warn('保存进度失败:', data.error);
+                }
+            } catch (err) {
+                console.error('保存进度网络错误:', err);
+            }
+        }
+
+        async function loadGameProgress() {
+            if (!currentUser) return;
+            try {
+                const response = await fetch(`/api/load_progress/${currentUser.username}`);
+                const data = await response.json();
+                if (data.success && data.progress) {
+                    const p = data.progress;
+                    gameState.gold = p.gold ?? 1000;
+                    gameState.healthPoints = p.healthPoints ?? 10;
+                    gameState.atk = p.atk ?? 15;
+                    gameState.def = p.def ?? 10;
+                    gameState.hp = p.hp ?? 100;
+                    gameState.maxHp = p.maxHp ?? 100;
+                    gameState.exp = p.exp ?? 0;
+                    gameState.expToNext = p.expToNext ?? 100;
+                    gameState.level = p.level ?? 1;
+                    gameState.dailyPurchased = p.dailyPurchased ?? 0;
+
+                    if (p.tasks && Array.isArray(p.tasks)) {
+                        p.tasks.forEach(savedTask => {
+                            const localTask = tasks.find(t => t.id === savedTask.id);
+                            if (localTask) {
+                                localTask.progress = savedTask.progress ?? 0;
+                                localTask.completed = savedTask.completed ?? false;
+                            }
+                        });
+                    }
+                    updateAllUI();
+                    renderTasks();
+                }
+            } catch (err) {
+                console.error('加载进度失败:', err);
+            }
+        }
+
+        function syncAndSave() {
+            updateAllUI();
+            saveGameProgress();
+        }
+
+        // ========== 每日重置任务和购买计数 ==========
+        async function checkDailyReset() {
+            const today = new Date().toLocaleDateString(); // 获取当前日期字符串
+            const lastResetDate = localStorage.getItem('lastResetDate');
+
+            if (lastResetDate !== today) {
+                // 重置任务进度
+                tasks.forEach(task => {
+                    task.progress = 0;
+                    task.completed = false;
+                });
+                // 重置每日购买健康点计数
+                gameState.dailyPurchased = 0;
+                // 更新界面
+                renderTasks();
+                updateAllUI();
+                // 保存到后端
+                await syncAndSave();
+                // 更新存储的日期
+                localStorage.setItem('lastResetDate', today);
+                showNotification('新的一天！任务已刷新，健康点购买次数已重置。', 'info');
+            }
+        }
+
+        // ========== 原有游戏函数 ==========
+        function showNotification(msg, type = 'success') {
+            const noti = document.createElement('div');
+            noti.textContent = msg;
+            noti.style.cssText = `position:fixed; top:20px; right:20px; padding:12px 20px; background:${type === 'error' ? 'linear-gradient(135deg,#FF4500,#FF6347)' : type === 'info' ? 'linear-gradient(135deg,#4169E1,#87CEEB)' : 'linear-gradient(135deg,#32CD32,#00FF7F)'}; color:white; border-radius:10px; font-weight:bold; z-index:10000; transform:translateX(100%); transition:transform 0.3s; box-shadow:0 5px 15px rgba(0,0,0,0.3); font-size:14px; max-width:300px; white-space:pre-line;`;
+            document.body.appendChild(noti);
+            setTimeout(() => noti.style.transform = 'translateX(0)', 10);
+            setTimeout(() => { noti.style.transform = 'translateX(100%)'; setTimeout(() => noti.remove(), 300); }, 3500);
+        }
+
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const percent = (task.progress / task.maxProgress) * 100;
+                const item = document.createElement('div');
+                item.className = 'task-item fade-in';
+                item.dataset.taskId = task.id;
+                item.innerHTML = `
+                            <div class="task-checkbox ${task.completed ? 'completed' : ''}" onclick="completeTask(${task.id})">${task.completed ? '✓' : ''}</div>
+                            <div class="task-content">
+                                <div class="task-name">${task.name}</div>
+                                <div class="task-description">${task.description}</div>
+                                <div class="task-progress">
+                                    <span>进度: ${task.progress}/${task.maxProgress}</span>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: ${percent}%"></div></div>
+                                </div>
+                            </div>
+                            <div class="task-reward">
+                                <div class="reward-item reward-gold"><i class="fas fa-coins"></i>+${task.reward.gold}</div>
+                                <div class="reward-item reward-exp"><i class="fas fa-star"></i>+${task.reward.exp}</div>
+                            </div>
+                        `;
+                taskList.appendChild(item);
+            });
+        }
+
+        // 任务完成函数（修改：任务1特殊处理）
+        function completeTask(taskId) {
+            if (taskId === 1) {
+                // 检查任务是否已完成，若已完成则提示并阻止打开模态框
+                const task = tasks.find(t => t.id === 1);
+                if (task && task.completed) {
+                    showNotification('今日饮食管理已完成，明天再来吧！', 'info');
+                    return;
+                }
+                // 打开套餐调整模态框
+                openMealAdjustModal();
+                return;
+            }
+            // 其他任务按原逻辑
+            const task = tasks.find(t => t.id === taskId);
+            if (!task || task.completed) return;
+            task.progress++;
+            if (task.progress >= task.maxProgress) {
+                task.completed = true;
+                gameState.gold += task.reward.gold;
+                gameState.exp += task.reward.exp;
+                checkLevelUp();
+                showNotification(`✨ 任务完成！获得 ${task.reward.gold} 金币和 ${task.reward.exp} 经验值 ✨`, 'success');
+            }
+            updateTaskUI(taskId);
+            syncAndSave();
+        }
+
+        function updateTaskUI(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            const el = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+            if (!el) return;
+            const cb = el.querySelector('.task-checkbox');
+            const progSpan = el.querySelector('.task-progress span');
+            const fill = el.querySelector('.progress-fill');
+            if (cb) {
+                cb.classList.toggle('completed', task.completed);
+                cb.innerHTML = task.completed ? '✓' : '';
+            }
+            if (progSpan) progSpan.textContent = `进度: ${task.progress}/${task.maxProgress}`;
+            if (fill) fill.style.width = `${(task.progress / task.maxProgress) * 100}%`;
+        }
+
+        function checkLevelUp() {
+            while (gameState.exp >= gameState.expToNext) {
+                gameState.level++;
+                gameState.exp -= gameState.expToNext;
+                gameState.expToNext = 100 + (gameState.level - 1) * 50;
+                gameState.atk += 5;
+                gameState.def += 3;
+                gameState.maxHp += 20;
+                gameState.hp = gameState.maxHp;
+                showNotification(`🎉 恭喜升级到 Lv.${gameState.level}！🎉\n攻击+5，防御+3，生命+20`, 'success');
+            }
+        }
+
+        function updateAllUI() {
+            document.getElementById('goldAmount').textContent = gameState.gold;
+            document.getElementById('goldStat').textContent = gameState.gold;
+            document.getElementById('healthPoints').textContent = gameState.healthPoints;
+            document.getElementById('healthStat').textContent = gameState.healthPoints;
+            document.getElementById('expValue').textContent = `${gameState.exp}/${gameState.expToNext}`;
+            document.getElementById('playerLevel').textContent = `Lv.${gameState.level}`;
+            document.getElementById('navLevel').textContent = gameState.level;
+            document.getElementById('atkValue').textContent = gameState.atk;
+            document.getElementById('defValue').textContent = gameState.def;
+            document.getElementById('hpValue').textContent = `${gameState.hp}/${gameState.maxHp}`;
+            document.getElementById('atkBar').style.width = `${(gameState.atk / 50) * 100}%`;
+            document.getElementById('defBar').style.width = `${(gameState.def / 50) * 100}%`;
+            document.getElementById('hpBar').style.width = `${(gameState.hp / gameState.maxHp) * 100}%`;
+            document.getElementById('atkCost').textContent = 3 + gameState.atk;
+            document.getElementById('defCost').textContent = 4 + gameState.def;
+            document.getElementById('hpCost').textContent = 2 + Math.floor(gameState.maxHp / 20);
+        }
+
+        function upgradeStat(statType) {
+            let cost = 0;
+            switch (statType) {
+                case 'atk': cost = 3 + gameState.atk; if (gameState.healthPoints < cost) { showNotification('健康点不足！', 'error'); return; } gameState.healthPoints -= cost; gameState.atk += 3; break;
+                case 'def': cost = 4 + gameState.def; if (gameState.healthPoints < cost) { showNotification('健康点不足！', 'error'); return; } gameState.healthPoints -= cost; gameState.def += 4; break;
+                case 'hp': cost = 2 + Math.floor(gameState.maxHp / 20); if (gameState.healthPoints < cost) { showNotification('健康点不足！', 'error'); return; } gameState.healthPoints -= cost; gameState.maxHp += 20; gameState.hp = gameState.maxHp; break;
+                default: return;
+            }
+            syncAndSave();
+            showNotification(`✨ ${statType.toUpperCase()} 升级成功！`, 'success');
+        }
+
+        function showPurchasePanel() { document.getElementById('purchasePanel').style.display = 'flex'; setupPurchaseOptions(); }
+        function hidePurchasePanel() { document.getElementById('purchasePanel').style.display = 'none'; selectedPurchaseAmount = 0; selectedPurchaseCost = 0; }
+        function setupPurchaseOptions() {
+            const opts = [1, 5, 10, 20];
+            const container = document.getElementById('purchaseOptions');
+            container.innerHTML = '';
+            opts.forEach(amt => {
+                const cost = amt <= 5 ? amt * 50 : (amt <= 10 ? 250 + (amt - 5) * 60 : (amt <= 15 ? 250 + 300 + (amt - 10) * 70 : 250 + 300 + 350 + (amt - 15) * 80));
+                const opt = document.createElement('div');
+                opt.className = 'purchase-option';
+                opt.innerHTML = `<div class="purchase-amount">${amt}</div><div class="purchase-price">${cost}金币</div>`;
+                opt.onclick = () => {
+                    selectedPurchaseAmount = amt;
+                    selectedPurchaseCost = cost;
+                    document.querySelectorAll('.purchase-option').forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                    document.getElementById('selectedAmount').textContent = amt;
+                    document.getElementById('totalCost').textContent = cost;
+                };
+                container.appendChild(opt);
+            });
+        }
+        function confirmPurchase() {
+            if (selectedPurchaseAmount === 0) { alert('请选择数量'); return; }
+            if (gameState.gold < selectedPurchaseCost) { showNotification('金币不足！', 'error'); return; }
+            if (gameState.dailyPurchased + selectedPurchaseAmount > 20) { showNotification('今日已达上限', 'error'); return; }
+            gameState.gold -= selectedPurchaseCost;
+            gameState.healthPoints += selectedPurchaseAmount;
+            gameState.dailyPurchased += selectedPurchaseAmount;
+            syncAndSave();
+            document.getElementById('dailyPurchased').textContent = gameState.dailyPurchased;
+            showNotification(`💚 成功购买 ${selectedPurchaseAmount} 健康点！`, 'success');
+            hidePurchasePanel();
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('recommendationData');
+            window.location.href = '/';
+        }
+
+        // ========== 节点地图逻辑（原样保留） ==========
+        const mapNodes = [
+            { id: 1, x: 200, y: 350, type: '异常之境·初阶', icon: 'enemy', description: '试炼的起点，面对变异魔物的首次挑战。', enemyStats: { atk: 5, def: 3, hp: 150, exp: 50, gold: 60 } },
+            { id: 2, x: 450, y: 200, type: '异常之境·中阶', icon: 'enemy', description: '魔物强度提升，环境开始扭曲。', enemyStats: { atk: 6, def: 4, hp: 220, exp: 80, gold: 100 } },
+            { id: 3, x: 750, y: 250, type: '异常之境·高阶', icon: 'enemy', description: '空间极不稳定，精英魔物出没。', enemyStats: { atk: 7, def: 5, hp: 300, exp: 120, gold: 150 } },
+            { id: 4, x: 1050, y: 300, type: '深渊领主', icon: 'boss', description: '扭曲空间的源头，深渊领主镇守的最终试炼。', enemyStats: { atk: 9, def: 8, hp: 500, exp: 300, gold: 400 } }
+        ];
+        let hoveredNode = null;
+        let mouseX = 0, mouseY = 0;
+        let mapCtx = null, mapCanvas = null;
+
+        function initMapCanvas() {
+            mapCanvas = document.getElementById('levelMapCanvas');
+            if (!mapCanvas) return;
+            mapCtx = mapCanvas.getContext('2d');
+            mapCanvas.width = 1200;
+            mapCanvas.height = 500;
+            drawMap();
+        }
+
+        function drawMap() {
+            if (!mapCtx) return;
+            const ctx = mapCtx;
+            const w = mapCanvas.width, h = mapCanvas.height;
+            ctx.clearRect(0, 0, w, h);
+            const bgGrad = ctx.createLinearGradient(0, 0, w, h);
+            bgGrad.addColorStop(0, '#0a0a16');
+            bgGrad.addColorStop(0.5, '#141428');
+            bgGrad.addColorStop(1, '#1a1a35');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, w, h);
+            const chains = [[1, 2], [2, 3], [3, 4]];
+            chains.forEach(([from, to], idx) => {
+                const n1 = mapNodes.find(n => n.id === from);
+                const n2 = mapNodes.find(n => n.id === to);
+                if (n1 && n2) drawChain(ctx, n1.x, n1.y, n2.x, n2.y, idx === 2);
+            });
+            mapNodes.forEach(node => {
+                const isBoss = node.id === 4;
+                const isHovered = hoveredNode && hoveredNode.id === node.id;
+                drawPlatform(ctx, node.x, node.y, isBoss, isHovered);
+                drawNodeIcon(ctx, node, isHovered);
+            });
+            if (hoveredNode) drawHoverIndicator(ctx, hoveredNode);
+            requestAnimationFrame(drawMap);
+        }
+
+        function drawChain(ctx, x1, y1, x2, y2, isBoss) {
+            const dx = x2 - x1, dy = y2 - y1, dist = Math.hypot(dx, dy);
+            const step = isBoss ? 12 : 15;
+            ctx.save();
+            ctx.strokeStyle = isBoss ? '#ff4500' : '#5a5a7a';
+            ctx.lineWidth = isBoss ? 4 : 2.5;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+            for (let i = step; i < dist; i += step) {
+                const t = i / dist, x = x1 + dx * t, y = y1 + dy * t;
+                ctx.beginPath();
+                ctx.arc(x, y, isBoss ? 5 : 3, 0, Math.PI * 2);
+                ctx.fillStyle = isBoss ? '#ff5500' : '#6a6a8a';
+                ctx.fill();
+                ctx.strokeStyle = '#222233';
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+        function drawPlatform(ctx, x, y, isBoss, isHovered) {
+            const w = isBoss ? 130 : 85, h = isBoss ? 28 : 22;
+            ctx.save();
+            ctx.shadowBlur = isHovered ? 25 : 18;
+            ctx.shadowOffsetY = 6;
+            if (isBoss) {
+                const grad = ctx.createLinearGradient(x - w / 2, y, x + w / 2, y + h);
+                grad.addColorStop(0, '#6a0000'); grad.addColorStop(0.5, '#ff4500'); grad.addColorStop(1, '#6a0000');
+                ctx.fillStyle = grad;
+                roundRect(ctx, x - w / 2, y, w, h, 4); ctx.fill();
+                ctx.strokeStyle = '#ff8c00'; ctx.lineWidth = 2; roundRect(ctx, x - w / 2, y, w, h, 4); ctx.stroke();
+                ctx.fillStyle = 'rgba(255,100,0,0.7)';
+                for (let i = 0; i < 6; i++) { let rx = x - w / 2 + (w / 6) * i + w / 12; ctx.beginPath(); ctx.ellipse(rx, y + h / 2, 6, 4, 0, 0, Math.PI * 2); ctx.fill(); }
+                const glow = ctx.createRadialGradient(x, y + h / 2, 0, x, y + h / 2, isHovered ? 90 : 70);
+                glow.addColorStop(0, 'rgba(255,69,0,0.8)'); glow.addColorStop(1, 'rgba(255,69,0,0)');
+                ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(x, y + h / 2, isHovered ? 90 : 70, 0, Math.PI * 2); ctx.fill();
+            } else {
+                const grad = ctx.createLinearGradient(x - w / 2, y, x + w / 2, y + h);
+                grad.addColorStop(0, isHovered ? '#3a3a6a' : '#2a2a5a');
+                grad.addColorStop(1, isHovered ? '#3a3a6a' : '#2a2a5a');
+                ctx.fillStyle = grad;
+                roundRect(ctx, x - w / 2, y, w, h, 4); ctx.fill();
+                ctx.strokeStyle = isHovered ? '#ffd700' : '#5a5a9a';
+                ctx.lineWidth = isHovered ? 2 : 1.5;
+                roundRect(ctx, x - w / 2, y, w, h, 4); ctx.stroke();
+                if (isHovered) {
+                    const glow = ctx.createRadialGradient(x, y + h / 2, 0, x, y + h / 2, 55);
+                    glow.addColorStop(0, 'rgba(255,215,0,0.3)');
+                    ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(x, y + h / 2, 55, 0, Math.PI * 2); ctx.fill();
+                }
+            }
+            ctx.restore();
+        }
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+        function drawNodeIcon(ctx, node, isHovered) {
+            const { x, y, type, icon } = node;
+            const cx = x, cy = y - 30;
+            ctx.save();
+            if (isHovered) ctx.shadowBlur = 25;
+            if (icon === 'enemy') {
+                const r = 22;
+                ctx.fillStyle = isHovered ? '#4a4a7a' : '#3a3a6a';
+                ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = isHovered ? '#f8e0b8' : '#f0d8a8';
+                ctx.beginPath(); ctx.arc(cx, cy - 3, 15, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#111122';
+                ctx.fillRect(cx - 9, cy - 20, 18, 6);
+                ctx.fillStyle = isHovered ? '#ffffcc' : '#ffffaa';
+                ctx.fillRect(cx - 7, cy - 18, 14, 4);
+                const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, 30);
+                glow.addColorStop(0, 'rgba(255,200,0,0.4)');
+                ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(cx, cy, 30, 0, Math.PI * 2); ctx.fill();
+            } else {
+                const spikeCount = 10, spikeLen = 28;
+                ctx.fillStyle = isHovered ? '#cc0000' : '#aa0000';
+                ctx.beginPath();
+                for (let i = 0; i < spikeCount; i++) {
+                    let ang = i * 2 * Math.PI / spikeCount + Math.PI / spikeCount;
+                    let px = cx + spikeLen * Math.cos(ang), py = cy + spikeLen * Math.sin(ang);
+                    if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+                }
+                ctx.closePath(); ctx.fill();
+                ctx.fillStyle = isHovered ? '#cc0000' : '#aa0000';
+                ctx.beginPath(); ctx.arc(cx, cy, 25, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#111';
+                ctx.fillRect(cx - 22, cy - 8, 44, 10);
+                ctx.fillStyle = isHovered ? '#ff7700' : '#ff5500';
+                ctx.fillRect(cx - 20, cy - 6, 40, 6);
+                ctx.fillStyle = '#111';
+                ctx.beginPath(); ctx.moveTo(cx - 16, cy - 20); ctx.lineTo(cx - 24, cy - 35); ctx.lineTo(cx - 10, cy - 30); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(cx + 16, cy - 20); ctx.lineTo(cx + 24, cy - 35); ctx.lineTo(cx + 10, cy - 30); ctx.fill();
+            }
+            ctx.fillStyle = isHovered ? '#ffff00' : '#ffd700';
+            ctx.font = isHovered ? 'bold 20px "微软雅黑"' : 'bold 18px "微软雅黑"';
+            ctx.textAlign = 'center';
+            ctx.fillText(type, x, y - 75);
+            ctx.restore();
+        }
+        function drawHoverIndicator(ctx, node) {
+            const cx = node.x, cy = node.y - 30;
+            ctx.save();
+            ctx.strokeStyle = node.icon === 'boss' ? '#ff4500' : '#ffd700';
+            ctx.lineWidth = 2.5;
+            ctx.setLineDash([6, 4]);
+            ctx.beginPath(); ctx.arc(cx, cy, 40, 0, Math.PI * 2); ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.strokeStyle = node.icon === 'boss' ? 'rgba(255,69,0,0.4)' : 'rgba(255,215,0,0.4)';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(mouseX, mouseY); ctx.stroke();
+            ctx.restore();
+        }
+
+        function initMapEvents() {
+            const canvas = document.getElementById('levelMapCanvas');
+            if (!canvas) return;
+            const tooltip = document.getElementById('nodeTooltip');
+            let hitRadius = window.innerWidth <= 768 ? 60 : 40;
+            window.addEventListener('resize', () => {
+                hitRadius = window.innerWidth <= 768 ? 60 : 40;
+            });
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                mouseX = (e.clientX - rect.left) * scaleX;
+                mouseY = (e.clientY - rect.top) * scaleY;
+                let newHover = null;
+                for (let node of mapNodes) {
+                    const dx = mouseX - node.x, dy = mouseY - (node.y - 30);
+                    if (Math.hypot(dx, dy) < hitRadius) {
+                        newHover = node;
+                        break;
+                    }
+                }
+                hoveredNode = newHover;
+                if (hoveredNode) {
+                    tooltip.style.opacity = '1';
+                    tooltip.style.left = (e.clientX + 20) + 'px';
+                    tooltip.style.top = (e.clientY + 20) + 'px';
+                    tooltip.innerHTML = `<div class="tooltip-title">${hoveredNode.type}</div><div class="tooltip-desc">${hoveredNode.description}</div>`;
+                } else {
+                    tooltip.style.opacity = '0';
+                }
+            });
+            canvas.addEventListener('click', () => {
+                if (hoveredNode) openBattle(hoveredNode);
+            });
+            canvas.addEventListener('mouseleave', () => { hoveredNode = null; tooltip.style.opacity = '0'; });
+        }
+
+        // ========== 战斗模块（原样保留） ==========
+        let currentBattleMonster = null;
+        let battleNinjaStats = null, battleMonsterStats = null;
+        let battleInterval = null, isBattleActive = false;
+
+        function initBattleHTML() {
+            const container = document.getElementById('battleInner');
+            container.innerHTML = `
+                        <div class="arena-glow"></div>
+                        <div class="platform"></div>
+                        <div class="ninja-stand"></div>
+                        <div class="monster-stand"></div>
+                        <div class="battle-container-inner">
+                            <div class="ninja-container-battle" id="battleNinjaContainer">
+                                <div class="ninja-avatar" style="transform:scale(1.5);transform-origin:top left;">
+                                    <div class="ninja-headband"></div>
+                                    <div class="ninja-eyemask"></div>
+                                    <div class="ninja-body"></div>
+                                    <div class="ninja-arm-left"></div>
+                                    <div class="ninja-arm-right"></div>
+                                    <div class="ninja-sword"><div class="handle"></div><div class="tsuba"></div><div class="blade"><div class="metal-texture"></div></div></div>
+                                </div>
+                            </div>
+                            <div class="monster-container-battle" id="battleMonsterContainer">
+                                <canvas id="battleMonsterCanvas" width="267" height="300"></canvas>
+                            </div>
+                        </div>
+                        <div class="stats-container-battle">
+                            <div class="character-stats-battle ninja-stats">
+                                <div class="stats-row"><span class="stats-label">ATK</span><span class="stats-value" id="battleNinjaAtk">0</span></div>
+                                <div class="stats-row"><span class="stats-label">DEF</span><span class="stats-value" id="battleNinjaDef">0</span></div>
+                                <div class="stats-row"><span class="stats-label">HP</span><span class="stats-value" id="battleNinjaHp">0</span></div>
+                                <div class="health-bar-mini"><div class="health-fill-mini" id="battleNinjaHealthFill" style="width:100%"></div></div>
+                            </div>
+                            <div class="character-stats-battle monster-stats">
+                                <div class="stats-row"><span class="stats-label">ATK</span><span class="stats-value" id="battleMonsterAtk">0</span></div>
+                                <div class="stats-row"><span class="stats-label">DEF</span><span class="stats-value" id="battleMonsterDef">0</span></div>
+                                <div class="stats-row"><span class="stats-label">HP</span><span class="stats-value" id="battleMonsterHp">0</span></div>
+                                <div class="health-bar-mini"><div class="health-fill-mini" id="battleMonsterHealthFill" style="width:100%"></div></div>
+                            </div>
+                        </div>
+                        <div class="battle-info-area">
+                            <div class="battle-log" id="battleLog">点击【开始战斗】</div>
+                            <div class="turn-indicator" id="turnIndicator" style="display:none;"><div class="turn-dot"></div><div class="turn-dot"></div><div class="turn-dot"></div></div>
+                        </div>
+                        <div class="button-group-battle">
+                            <button class="action-btn-battle" id="battleAttackBtn">⚔️ 开始战斗 ⚔️</button>
+                            <button class="action-btn-battle reset-btn" id="battleResetBtn">🔄 重置战斗</button>
+                        </div>
+                    `;
+            const monCanvas = document.getElementById('battleMonsterCanvas');
+            if (monCanvas) {
+                const ctx = monCanvas.getContext('2d');
+                drawMonster(ctx, monCanvas.width, monCanvas.height);
+            }
+            document.getElementById('battleAttackBtn').onclick = startBattle;
+            document.getElementById('battleResetBtn').onclick = resetBattle;
+        }
+
+        function drawMonster(ctx, w, h) {
+            ctx.clearRect(0, 0, w, h);
+            const cx = w / 2, cy = h / 2 - 13;
+            ctx.fillStyle = '#8b0000';
+            ctx.beginPath(); ctx.ellipse(cx, cy, 87, 100, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#000';
+            ctx.beginPath(); ctx.ellipse(cx - 33, cy - 13, 23, 30, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(cx + 33, cy - 13, 23, 30, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ff0000';
+            ctx.beginPath(); ctx.ellipse(cx - 33, cy - 13, 20, 27, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(cx + 33, cy - 13, 20, 27, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#000';
+            ctx.beginPath(); ctx.ellipse(cx - 33, cy - 13, 5, 17, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(cx + 33, cy - 13, 5, 17, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#330000';
+            ctx.beginPath(); ctx.ellipse(cx, cy + 33, 40, 20, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#fff';
+            for (let i = 0; i < 6; i++) ctx.fillRect(cx - 17 + i * 7, cy + 27, 3, 10);
+            ctx.fillStyle = '#222';
+            ctx.beginPath(); ctx.moveTo(cx - 33, cy - 53); ctx.lineTo(cx - 60, cy - 100); ctx.lineTo(cx - 20, cy - 87); ctx.fill();
+            ctx.beginPath(); ctx.moveTo(cx + 33, cy - 53); ctx.lineTo(cx + 60, cy - 100); ctx.lineTo(cx + 20, cy - 87); ctx.fill();
+        }
+
+        function updateBattleUI() {
+            document.getElementById('battleNinjaAtk').innerText = battleNinjaStats.atk;
+            document.getElementById('battleNinjaDef').innerText = battleNinjaStats.def;
+            document.getElementById('battleNinjaHp').innerText = battleNinjaStats.hp;
+            document.getElementById('battleMonsterAtk').innerText = battleMonsterStats.atk;
+            document.getElementById('battleMonsterDef').innerText = battleMonsterStats.def;
+            document.getElementById('battleMonsterHp').innerText = battleMonsterStats.hp;
+            const ninjaPercent = (battleNinjaStats.hp / battleNinjaStats.maxHp) * 100;
+            const monsterPercent = (battleMonsterStats.hp / battleMonsterStats.maxHp) * 100;
+            document.getElementById('battleNinjaHealthFill').style.width = `${Math.max(0, ninjaPercent)}%`;
+            document.getElementById('battleMonsterHealthFill').style.width = `${Math.max(0, monsterPercent)}%`;
+        }
+
+        function battleRound() {
+            if (battleNinjaStats.hp <= 0 || battleMonsterStats.hp <= 0) return;
+            const ninjaDamage = Math.max(1, battleNinjaStats.atk - battleMonsterStats.def);
+            battleMonsterStats.hp = Math.max(0, battleMonsterStats.hp - ninjaDamage);
+            const ninjaEl = document.getElementById('battleNinjaContainer');
+            const monsterEl = document.getElementById('battleMonsterContainer');
+            ninjaEl.classList.add('attacking');
+            monsterEl.classList.add('hit');
+            createBattleSlash();
+            createBattleDamageNumber(ninjaDamage, false);
+            document.getElementById('battleLog').innerText = `⚔️ 忍者攻击！造成 ${ninjaDamage} 点伤害`;
+            updateBattleUI();
+
+            if (battleMonsterStats.hp <= 0) {
+                monsterEl.classList.add('defeated');
+                createBattleSmoke('70%', '40%');
+                setTimeout(() => {
+                    document.getElementById('battleLog').innerText = `🎉 胜利！击败${currentBattleMonster.type}！🎉`;
+                    endBattle(true);
+                }, 300);
+                return;
+            }
+
+            setTimeout(() => {
+                if (battleMonsterStats.hp > 0 && battleNinjaStats.hp > 0) {
+                    const monsterDamage = Math.max(1, battleMonsterStats.atk - battleNinjaStats.def);
+                    battleNinjaStats.hp = Math.max(0, battleNinjaStats.hp - monsterDamage);
+                    createBattleDamageNumber(monsterDamage, true);
+                    document.getElementById('battleLog').innerText = `👾 怪兽反击！造成 ${monsterDamage} 点伤害`;
+                    updateBattleUI();
+                    if (battleNinjaStats.hp <= 0) {
+                        ninjaEl.classList.add('defeated');
+                        createBattleSmoke('30%', '40%');
+                        setTimeout(() => {
+                            document.getElementById('battleLog').innerText = `💀 战斗失败... 忍者被击败 💀`;
+                            endBattle(false);
+                        }, 300);
+                    }
+                }
+            }, 150);
+            setTimeout(() => {
+                ninjaEl.classList.remove('attacking');
+                monsterEl.classList.remove('hit');
+            }, 200);
+        }
+
+        function startBattle() {
+            if (isBattleActive) return;
+            if (battleNinjaStats.hp <= 0 || battleMonsterStats.hp <= 0) resetBattle();
+            isBattleActive = true;
+            document.getElementById('battleAttackBtn').classList.add('disabled');
+            document.getElementById('turnIndicator').style.display = 'flex';
+            battleRound();
+            battleInterval = setInterval(() => {
+                if (battleNinjaStats.hp <= 0 || battleMonsterStats.hp <= 0) {
+                    endBattle(battleMonsterStats.hp <= 0);
+                } else {
+                    battleRound();
+                }
+            }, 600);
+        }
+
+        function endBattle(isWin) {
+            if (battleInterval) clearInterval(battleInterval);
+            isBattleActive = false;
+            document.getElementById('battleAttackBtn').classList.remove('disabled');
+            document.getElementById('turnIndicator').style.display = 'none';
+            if (isWin && currentBattleMonster) {
+                gameState.gold += currentBattleMonster.enemyStats.gold;
+                gameState.exp += currentBattleMonster.enemyStats.exp;
+                checkLevelUp();
+                syncAndSave();
+                showNotification(`🎉 击败${currentBattleMonster.type}！获得 ${currentBattleMonster.enemyStats.gold} 金币和 ${currentBattleMonster.enemyStats.exp} 经验！`, 'success');
+            }
+            setTimeout(() => {
+                document.getElementById('battleModal').style.display = 'none';
+                document.getElementById('nodeMapModal').style.display = 'flex';
+            }, 1500);
+        }
+
+        function resetBattle() {
+            if (battleInterval) clearInterval(battleInterval);
+            isBattleActive = false;
+            battleNinjaStats = { ...gameState, maxHp: gameState.maxHp };
+            battleMonsterStats = { ...currentBattleMonster.enemyStats, maxHp: currentBattleMonster.enemyStats.hp };
+            updateBattleUI();
+            document.getElementById('battleAttackBtn').classList.remove('disabled');
+            document.getElementById('turnIndicator').style.display = 'none';
+            document.getElementById('battleLog').innerText = '战斗已重置，点击开始战斗';
+            const ninjaEl = document.getElementById('battleNinjaContainer');
+            const monsterEl = document.getElementById('battleMonsterContainer');
+            ninjaEl.classList.remove('defeated', 'attacking');
+            monsterEl.classList.remove('defeated', 'hit');
+        }
+
+        function createBattleSlash() {
+            const container = document.getElementById('battleInner');
+            const slash = document.createElement('div');
+            slash.className = 'slash-effect';
+            slash.style.left = '45%';
+            slash.style.top = '45%';
+            container.appendChild(slash);
+            setTimeout(() => slash.remove(), 150);
+        }
+        function createBattleDamageNumber(damage, isNinja) {
+            const number = document.createElement('div');
+            number.className = `damage-number ${isNinja ? 'ninja-damage' : 'monster-damage'}`;
+            number.textContent = `-${damage}`;
+            number.style.left = isNinja ? '30%' : '70%';
+            number.style.top = '40%';
+            document.getElementById('battleInner').appendChild(number);
+            setTimeout(() => number.remove(), 400);
+        }
+        function createBattleSmoke(left, top) {
+            for (let i = 0; i < 3; i++) {
+                const smoke = document.createElement('div');
+                smoke.className = 'defeat-smoke';
+                smoke.style.left = left;
+                smoke.style.top = top;
+                document.getElementById('battleInner').appendChild(smoke);
+                setTimeout(() => smoke.remove(), 1000);
+            }
+        }
+
+        function openBattle(node) {
+            currentBattleMonster = node;
+            battleNinjaStats = { ...gameState, maxHp: gameState.maxHp };
+            battleMonsterStats = { ...node.enemyStats, maxHp: node.enemyStats.hp };
+            initBattleHTML();
+            updateBattleUI();
+            document.getElementById('nodeMapModal').style.display = 'none';
+            document.getElementById('battleModal').style.display = 'flex';
+        }
+
+        // ========== 套餐调整功能 ==========
+        // 21道菜营养向量（与后端 a_vectors 一致）
+        const dishNutritionVectors = [
+            [320, 0, 20, 0, 25, 15, 0.5, 550],   // 1.红烧肉
+            [220, 5, 18, 0, 18, 12, 2, 450],     // 2.番茄炒蛋
+            [120, 32, 0, 0, 8, 83, 101, 320],    // 3.蒜蓉上海青
+            [150, 41, 0, 0, 10, 256, 2.5, 450],  // 4.酸辣土豆丝
+            [350, 30, 25, 0, 25, 221, 5, 750],   // 5.鱼香肉丝
+            [380, 20, 30, 0, 22, 248, 4, 680],   // 6.宫保鸡丁
+            [280, 0, 6, 15, 12, 187, 3, 520],    // 7.麻婆豆腐
+            [280, 0, 22, 0, 10, 32, 0, 450],     // 8.清蒸鲈鱼
+            [250, 85, 0, 0, 15, 354, 4.2, 520],  // 9.地三鲜
+            [320, 0, 25, 0, 20, 203, 2, 780],    // 10.京酱肉丝
+            [300, 0, 30, 0, 22, 85, 1.5, 520],   // 11.葱油手撕鸡
+            [380, 0, 20, 0, 25, 428, 2.8, 650],  // 12.糖醋里脊
+            [220, 0, 20, 0, 8, 89, 0, 350],      // 13.清炒虾仁
+            [150, 78, 0, 0, 8, 125, 7, 280],     // 14.蒜蓉西兰花
+            [320, 10, 20, 0, 18, 189, 3.5, 580], // 15.木须肉
+            [120, 10, 8, 0, 5, 128, 1.2, 320],   // 16.西红柿鸡蛋汤
+            [220, 0, 20, 15, 10, 68, 2, 350],    // 17.鲫鱼豆腐汤
+            [180, 0, 15, 0, 8, 125, 3.8, 480],   // 18.冬瓜肉丸汤
+            [280, 12, 10, 0, 15, 289, 8, 520],   // 19.红烧茄子
+            [350, 0, 25, 0, 20, 158, 2.2, 550],  // 20.葱爆羊肉
+            [350, 0, 0, 0, 1, 150, 2, 100]       // 21.主食
+        ];
+        const dishNames = [
+            "红烧肉", "番茄炒蛋", "蒜蓉上海青", "酸辣土豆丝", "鱼香肉丝",
+            "宫保鸡丁", "麻婆豆腐", "清蒸鲈鱼", "地三鲜", "京酱肉丝",
+            "葱油手撕鸡", "糖醋里脊", "清炒虾仁", "蒜蓉西兰花", "木须肉",
+            "西红柿鸡蛋汤", "鲫鱼豆腐汤", "冬瓜肉丸汤", "红烧茄子", "葱爆羊肉",
+            "主食（米饭/面/面包）"
+        ];
+        const nutritionTargets = {
+            calories: 1200,
+            protein: 100,   // 后端蛋白质目标为100g
+            fat: 30,
+            carbs: 300,
+            fiber: 15,
+            sodium: 600
+        };
+
+        function getNutritionFromDishAmounts(amounts) {
+            let total = [0, 0, 0, 0, 0, 0, 0, 0];
+            for (let i = 0; i < amounts.length; i++) {
+                let vec = dishNutritionVectors[i];
+                let factor = amounts[i];
+                for (let j = 0; j < 8; j++) {
+                    total[j] += vec[j] * factor;
+                }
+            }
+            let protein = total[1] + total[2] + total[3];
+            return {
+                calories: total[0],
+                protein: protein,
+                fat: total[4],
+                carbs: total[5],
+                fiber: total[6],
+                sodium: total[7]
+            };
+        }
+
+        let currentMealPlan = null;
+        let currentAmounts = [];
+
+        function openMealAdjustModal() {
+            const recData = JSON.parse(localStorage.getItem('recommendationData'));
+            if (!recData || !recData.optimizedMealPlan || !recData.optimizedMealPlan.dishes) {
+                alert('请先完成健康问卷获取饮食推荐！');
+                return;
+            }
+            currentMealPlan = recData.optimizedMealPlan.dishes;
+            currentAmounts = currentMealPlan.map(dish => dish.amount);
+            renderMealList();
+            initNutritionGrid();
+            updateNutritionFromAmounts();
+            document.getElementById('mealAdjustModal').style.display = 'flex';
+        }
+
+        function renderMealList() {
+            const container = document.getElementById('mealList');
+            container.innerHTML = '';
+            currentMealPlan.forEach((dish, idx) => {
+                const div = document.createElement('div');
+                div.className = 'meal-item';
+                div.innerHTML = `
+                            <div class="meal-name">${dish.name} ${dish.isLiked ? '❤' : ''}</div>
+                            <div class="meal-amount-control">
+                                <button class="meal-amount-btn" data-idx="${idx}" data-delta="-0.5">-0.5</button>
+                                <span class="meal-amount" id="amount_${idx}">${currentAmounts[idx].toFixed(1)}</span>
+                                <button class="meal-amount-btn" data-idx="${idx}" data-delta="+0.5">+0.5</button>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+            document.querySelectorAll('.meal-amount-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = parseInt(btn.dataset.idx);
+                    let delta = parseFloat(btn.dataset.delta);
+                    let newVal = currentAmounts[idx] + delta;
+                    if (newVal < 0) newVal = 0;
+                    if (newVal > 5) newVal = 5;
+                    currentAmounts[idx] = newVal;
+                    document.getElementById(`amount_${idx}`).innerText = newVal.toFixed(1);
+                    updateNutritionFromAmounts();
+                });
+            });
+        }
+
+        function initNutritionGrid() {
+            const grid = document.getElementById('nutritionGrid');
+            const nutrients = ['calories', 'protein', 'fat', 'carbs', 'fiber', 'sodium'];
+            const names = ['卡路里 (kcal)', '蛋白质 (g)', '脂肪 (g)', '碳水化合物 (g)', '纤维素 (g)', '钠 (mg)'];
+            grid.innerHTML = '';
+            nutrients.forEach((nut, i) => {
+                const target = nutritionTargets[nut];
+                const card = document.createElement('div');
+                card.className = 'nutrient-card';
+                card.id = `nutrient_${nut}`;
+                card.innerHTML = `
+                            <div class="nutrient-name">${names[i]}</div>
+                            <div class="nutrient-value" id="${nut}_value">0</div>
+                            <div class="nutrient-goal">目标: ${target}</div>
+                            <div class="nutrient-progress"><div class="nutrient-progress-fill" id="${nut}_fill"></div></div>
+                        `;
+                grid.appendChild(card);
+            });
+        }
+
+        function updateNutritionFromAmounts() {
+            let dishAmounts = new Array(21).fill(0);
+            currentMealPlan.forEach((dish, idx) => {
+                let dishIndex = dishNames.indexOf(dish.name);
+                if (dishIndex !== -1) {
+                    dishAmounts[dishIndex] = currentAmounts[idx];
+                }
+            });
+            const nutrition = getNutritionFromDishAmounts(dishAmounts);
+            const nutrients = ['calories', 'protein', 'fat', 'carbs', 'fiber', 'sodium'];
+            let allAbove70 = true;
+            for (let nut of nutrients) {
+                let actual = nutrition[nut];
+                let target = nutritionTargets[nut];
+                let percent = (actual / target) * 100;
+                if (percent > 100) percent = 100;
+                document.getElementById(`${nut}_value`).innerText = actual.toFixed(1);
+                const fill = document.getElementById(`${nut}_fill`);
+                fill.style.width = `${percent}%`;
+                if (percent < 70) allAbove70 = false;
+            }
+            const statusDiv = document.getElementById('mealStatus');
+            if (allAbove70) {
+                statusDiv.innerHTML = '🎉 恭喜！所有营养指标均达标70%以上！完成饮食管理！ 🎉';
+                statusDiv.style.backgroundColor = '#4caf50';
+                setTimeout(() => {
+                    document.getElementById('mealAdjustModal').style.display = 'none';
+                    const task = tasks.find(t => t.id === 1);
+                    if (task && !task.completed) {
+                        task.progress++;
+                        // 更新UI（进度条和文本）
+                        updateTaskUI(1);
+                        if (task.progress >= task.maxProgress) {
+                            task.completed = true;
+                            gameState.gold += task.reward.gold;
+                            gameState.exp += task.reward.exp;
+                            checkLevelUp();
+                            showNotification(`✨ 任务完成！获得 ${task.reward.gold} 金币和 ${task.reward.exp} 经验值 ✨`, 'success');
+                            // 再次更新UI以确保复选框打勾
+                            updateTaskUI(1);
+                        }
+                        syncAndSave();
+                    }
+                }, 500);
+            } else {
+                statusDiv.innerHTML = '当前达标情况：请调整份数使所有指标达到70%以上';
+                statusDiv.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            }
+        }
+
+        // 关闭模态框
+        document.getElementById('closeMealBtn').addEventListener('click', () => {
+            document.getElementById('mealAdjustModal').style.display = 'none';
+        });
+
+        // ========== 页面初始化 ==========
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userStr = localStorage.getItem('currentUser');
+            if (!userStr) {
+                window.location.href = '/';
+                return;
+            }
+            currentUser = JSON.parse(userStr);
+            document.getElementById('currentUsername').textContent = currentUser.username;
+
+            await loadGameProgress();
+
+            // 检查并执行每日重置
+            await checkDailyReset();
+
+            renderTasks();
+            updateAllUI();
+            setupPurchaseOptions();
+
+            const exploreBtn = document.getElementById('exploreNav');
+            if (exploreBtn) {
+                exploreBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('nodeMapModal').style.display = 'flex';
+                    setTimeout(() => { initMapCanvas(); initMapEvents(); }, 50);
+                });
+            }
+            document.getElementById('closeMapBtn').onclick = () => document.getElementById('nodeMapModal').style.display = 'none';
+            document.getElementById('closeBattleBtn').onclick = () => {
+                document.getElementById('battleModal').style.display = 'none';
+                document.getElementById('nodeMapModal').style.display = 'flex';
+            };
+            const tasksNav = document.getElementById('tasksNav');
+            if (tasksNav) {
+                tasksNav.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tasksSection = document.getElementById('tasks-section');
+                    if (tasksSection) tasksSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

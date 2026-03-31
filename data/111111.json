@@ -1,0 +1,19 @@
+{
+  "username": "111111",
+  "password": "111111a",
+  "email": "1975512244@qq.com",
+  "createdAt": "2026-03-30 20:23:37.791102",
+  "hasCompletedQuestionnaire": false,
+  "gameProgress": {
+    "gold": 100,
+    "healthPoints": 10,
+    "atk": 15,
+    "def": 10,
+    "hp": 100,
+    "maxHp": 100,
+    "exp": 0,
+    "expToNext": 100,
+    "level": 1,
+    "dailyPurchased": 0
+  }
+}

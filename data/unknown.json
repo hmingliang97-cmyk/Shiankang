@@ -1,0 +1,36 @@
+{
+  "username": "unknown",
+  "password": "unknown1",
+  "email": "1975512244@qq.com",
+  "createdAt": "2026-03-30 20:24:28.390967",
+  "hasCompletedQuestionnaire": true,
+  "gameProgress": {
+    "gold": 150,
+    "healthPoints": 10,
+    "atk": 15,
+    "def": 10,
+    "hp": 100,
+    "maxHp": 100,
+    "exp": 20,
+    "expToNext": 100,
+    "level": 1,
+    "dailyPurchased": 0,
+    "tasks": [
+      {
+        "id": 1,
+        "progress": 2,
+        "completed": true
+      },
+      {
+        "id": 2,
+        "progress": 0,
+        "completed": false
+      },
+      {
+        "id": 3,
+        "progress": 0,
+        "completed": false
+      }
+    ]
+  }
+}
